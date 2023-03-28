@@ -1,0 +1,1 @@
+docker stop scans || true; docker stop scans_w_rebuild || true; echo 'scans stopped'
