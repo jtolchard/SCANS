@@ -48,7 +48,7 @@ path = pathbuilder()
 
 # Unpack the bundled docker image
 print("Unpacking docker image")
-command = ["docker", "load", "-i", "docker/scans_client_img"]
+command = ["docker", "load", "-i", "docker/client.dkrimg"]
 run_command(command)
 
 # Wipe script if they already exist
