@@ -61,10 +61,12 @@ if os.path.exists(os.path.join(bin_path, "scans_start")):
 # Build Scripts
 cmd = f"scans /usr/bin/python3 scraper.py"
 output = f"-v {output_path}:/root/scans/logs"
-start_cmd = (f"docker run --name scans -d {path} {output} {cmd} --output-file ./logs/{log_name}")
-rebuild_cmd = (f"docker run --name scans_rebuild -d {path} {output} {cmd} --rebuild --output-file ./logs/{log_name}")
-build_run_cmd = (f"docker run --name scans_w_rebuild -d {path} {output} {cmd} --rebuild-restart --output-file ./logs/{log_name}")
-stop_cmd = ("docker stop scans || true; docker stop scans_w_rebuild || true; echo 'scans stopped'")
+timesync = f"-v /etc/localtime:/etc/localtime:ro"
+start_cmd = (f"docker run --name scans -e PYTHONUNBUFFERED=1 -d {timesync} {path} {output} {cmd} --output-file ./logs/{log_name}")
+rebuild_cmd = (f"docker run --name scans_rebuild -e PYTHONUNBUFFERED=1 -d {timesync} {path} {output} {cmd} --rebuild --output-file ./logs/{log_name}")
+build_run_cmd = (f"docker run --name scans_w_rebuild -e PYTHONUNBUFFERED=1 -d {timesync} {path} {output} {cmd} --rebuild-restart --output-file ./logs/{log_name}")
+stop_cmd = ("docker rm -f scans 2>/dev/null; docker rm -f scans_w_rebuild 2>/dev/null; echo 'scans stopped'")
+status_cmd = ("docker logs scans")
 
 # Write scripts
 print("Writing executable scripts")
@@ -83,6 +85,10 @@ f.close()
 # Stop
 f = open(os.path.join(bin_path, "scans_stop"),"w+")
 f.write(stop_cmd)
+f.close()
+# Status
+f = open(os.path.join(bin_path, "scans_status"),"w+")
+f.write(status_cmd)
 f.close()
 
 # Make scripts executable
