@@ -1,1 +1,1 @@
-docker stop scans || true; docker stop scans_w_rebuild || true; echo 'scans stopped'
+docker rm -f scans 2>/dev/null; docker rm -f scans_w_rebuild 2>/dev/null; echo 'scans stopped'
