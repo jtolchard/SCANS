@@ -14,7 +14,7 @@ system_name = clientparams.system_name
 
 def get_metrics(metric_list, rebuild_metric_db):
     """
-    Retrieves metrics from log files.
+    Retrieves metrics stored as dictionaries in clientparams.
 
     Args:
         metric_list (list): A list of dictionaries containing information about the metrics.
@@ -36,11 +36,12 @@ def get_metrics(metric_list, rebuild_metric_db):
                     if last_row:
                         metric = {"name": metric['name'], "date": last_row[metric['datestamp_position']], "value": last_row[metric['datavalue_position']]+metric['units']}
 
-                    # These two lines work, but bloat the file
+                    # This works, but bloat the file. For now - removed
                     #else:
                     #    metric = {"name":metric['name'],  "date":datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S"), "error": f'error, log file empty. Check contents of {metric_logfile} defined in clientparams.py'}
-            else:
-                metric = {"name":metric['name'],  "date":datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S"), "error": f'error accessing log file {metric_logfile}. Check path in clientparams.py'}
+            #This works, but bloat the file. For now - removed
+            #else:
+            #    metric = {"name":metric['name'],  "date":datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S"), "error": f'error accessing log file {metric_logfile}. Check path in clientparams.py'}
             metrics.append(metric)
         return metrics
 
