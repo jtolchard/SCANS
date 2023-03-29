@@ -19,7 +19,7 @@ automatically at boot time (see Installation notes). When running, the client wi
 singular log file, with each record stored as a python dictionary.
 
 * <ins>**The Controller**</ins>  
-The SCANS controller should be installed on a single computer. It will gather metrics across all SCAN clients on a given network and provide a web interface for viewing the metric data.
+The SCANS controller should be installed on a single computer, ideally one which is permanently online. It will gather metrics across all SCAN clients of a given network and provide a web interface for viewing the metric data.
 Future implementations of SCANS will comprise elements of system monitoring and user administration.
 
 
@@ -31,6 +31,76 @@ If your systems are not already running MICS, please consult the Official Instal
 This should result in a series of regulary updates logfiles, available at _/opt/Bruker/mics/logs._ Typical metrics include the daily helium level, shim currents, B0_field monitoring, and system events. Although uncommon, Nitrogen-level monitoring  will also be available on systems equipped with a nitrogen-level sensor. 
 
 ## INSTALLATION of SCANS
+
+The main SCANS package can be downloaded with the following command:  
+<ins>** WHEN REPO GOES PUBLIC **</ins>  
+wget https://github.com/jtolchard/SCANS/archive/refs/heads/main.zip
+
+<ins>**For each client machine**</ins>  
+Unpack the repository in a suitable location  and move to the Client directory:  
+```
+    wget https://github.com/jtolchard/SCANS/archive/refs/heads/main.zip
+    unzip main.zip
+    mv main SCANS  
+    cd SCANS/Client  
+```  
+  
+Open clientparams.py with a text editor and revise the number and nature of any desired metrics. 
+Each metric is stored as a Python dictionaries, for example:  
+```  
+helium_level = {  
+    'name': 'helium_level',                              # Name of the variable  
+    'use': True,                                         # Should this variable be scraped / is it setup  
+    'path': '/opt/Bruker/mics/logs/heliumlogcache.log',  # Path pointing to live logs  
+    'dockerpath': '/root/scans/logs/helium_level.log',   # DO NOT EDIT - mounted volume path used in container env  
+    'delim': ';',                                        # The delimiter used by the logfile  
+    'datestamp_position': 0,                             # The column position of the time/date data in the row (starts at zero!)  
+    'datavalue_position': 1,                             # The column position of the data value in the row (starts at zero!)   
+    'units': '%'                                         # Desired unit of the output values  
+}  
+```  
+You can also add additional metrics by adding new blocks.  
+  
+It is fine to reference any log files that are currently empty, however the inclusion of incorrect paths will halt the installer.  
+Configuration and installation should therefore be done after any logging software (i.e, MICS) has been setup.
+
+You should also set the system_name at the top of clientparams.py to distinguish your specific machine. 
+
+<ins>**Docker**</ins>  
+You will also need to iNstall Docker to manage the SCANS docker-containerS. The easiest method is to run:
+
+`sudo yum install docker` # if you are on a CentOS /rpm system  
+or  
+`sudo apt-install docker` # if you are on a Debian / deb system.
+
+SCANS (client or controller) will run seemlessly [on MacOS, and Intel and AppleSilicon variants exist](https://docs.docker.com/desktop/install/mac-install/). 
+Alternatlvey, you can also install docker via a package manager like homebrew or ports.
+
+SCANS has not currently been tested on Windows.
+I don't see why SCANS wouldn't work well within WS - but this will require Windows 10 or greater.
+I will investigate installation on older systems.  
+  
+Once docker is installed, you will be free to build and run scans.
+To do so, build a docker image for the SCANS client:
+```
+    cd SCANS/Client  
+    docker build -t scans -f docker/Dockerfile .
+    docker save scans -o docker/client.dkrimg     # This is not fully required, but useful for troubleshooting 
+```  
+
+To finish setup, you can then run the installer with:  
+```
+python3 installer.py 
+```  
+This will create a <ins>bin/</ins> directory with five scripts specific to your system:
+
+scans_build+start
+scans_rebuild
+scans_start
+
+scans_stop
+scans_status = As SCANS runs, it creates some simple logs which can be useful for troubleshooting. 
+
 
 
 
