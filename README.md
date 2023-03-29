@@ -80,31 +80,44 @@ SCANS has not currently been tested on Windows.
 I don't see why SCANS wouldn't work well within WS - but this will require Windows 10 or greater.
 I will investigate installation on older systems.  
   
-Once docker is installed, you will be free to build and run scans.
-To do so, build a docker image for the SCANS client:
-```
-    cd SCANS/Client  
-    docker build -t scans -f docker/Dockerfile .
-    docker save scans -o docker/client.dkrimg     # This is not fully required, but useful for troubleshooting 
+Once docker is installed, you will be free to run the installer with:  
+
+```  
+python3 installer.py --full  
+```  
+This will create a <ins>bin/</ins> directory with five scripts specific to your system:  
+```  
+scans_start       # Start the monitoring process.  
+scans_build+start # Fully parse all available logs to date and start the monitoring process.  
+scans_rebuild     # Fully parse all available logs and create aggregated log. Do not activate monitoring process.  
+scans_stop        # Stop the SCANS process and delete the relevant container.  
+scans_status      # Read the log file that SCANS creates as it runs. Confirms scans is runninf and can be useful for troubleshooting.  
 ```  
 
-To finish setup, you can then run the installer with:  
-```
-python3 installer.py 
+For first-time installations, the `bin/scans_build+start` is recommended. 
+
+This can be run manually from the command line, or run as a system process to start SCANS automatically upon boot.
+This can be done by:  
 ```  
-This will create a <ins>bin/</ins> directory with five scripts specific to your system:
+sudo mv service /etc/systemd/scans_client.service  
+sudo systemctl  
+sudo systemctl daemon-reload  
+sudo systemctl start scans_client.service 
+sudo systemctl status scans_client.service
+sudo systemctl enable scans_client.service
+```  
 
-scans_build+start
-scans_rebuild
-scans_start
-
-scans_stop
-scans_status = As SCANS runs, it creates some simple logs which can be useful for troubleshooting. 
-
-
-
-
+should you wish to disable SCANS starting at boot time, you can use:  
+`sudo systemctl disable scans_client.service`  
+  
+If you would like frequent command line access to SCANS, you can add the bin directory to your UNIX path ([online how-to](https://phoenixnap.com/kb/linux-add-to-path)).
 
 
 ## NOTES:
 - Do not edit/delete the files in the logging directory, as these are mount points for the SCANS scraper. If you do, you will need to stop and restart SCANS
+
+
+## TO ADD:
+Check with SCANS is running as a system service?
+Add ./bin to path?
+Information for HLMU units?
