@@ -50,7 +50,7 @@ Each metric is stored as a Python dictionary (within curly braces), for example:
 ```  
 helium_level = {  
     'name': 'helium_level',                              # Name of the variable  
-    'use': True,                                         # Should this variable be scraped / is it setup  
+    'use': True,                                         # Should this variable be scraped?
     'path': '/opt/Bruker/mics/logs/heliumlogcache.log',  # Path pointing to live logs  
     'dockerpath': '/root/scans/logs/helium_level.log',   # DO NOT EDIT - mounted volume path used in container env  
     'delim': ';',                                        # The delimiter used by the logfile  
@@ -60,39 +60,39 @@ helium_level = {
 }  
 ```
 
-You can also add additional metrics by adding new blocks.  
+You can add any additional metrics by creating new blocks.  
   
-It is fine to reference any log files that are currently empty, however the inclusion of incorrect paths will halt the installer.  
+It is fine to reference any log files that are currently empty, however the inclusion of incorrect paths will halt the installer.
 Configuration and installation should therefore be done after any logging software (i.e, MICS) has been setup.
 
-You should also set the system_name at the top of clientparams.py to distinguish your specific machine. 
+<ins>Remember to set the system_name at the top of clientparams.py to distinguish your specific machine.</ins>
 
 <ins>**Docker**</ins>  
-You will also need to iNstall Docker to manage the SCANS docker-containerS. The easiest method is to run:
+You will also need to install Docker to manage the SCANS docker-containers. The easiest method is to run:
 
 `sudo yum install docker` # if you are on a CentOS /rpm system  
 or  
 `sudo apt-install docker` # if you are on a Debian / deb system.
 
-SCANS (client or controller) will run seemlessly [on MacOS, and Intel and AppleSilicon variants exist](https://docs.docker.com/desktop/install/mac-install/). 
-Alternatlvey, you can also install docker via a package manager like homebrew or ports.
+SCANS (client or controller) will run seemlessly [on MacOS (Intel and Apple Silicon)](https://docs.docker.com/desktop/install/mac-install/). 
+Alternatively, you can also install docker via a package manager like homebrew or ports.
 
 SCANS has not currently been tested on Windows.
-I don't see why SCANS wouldn't work well within WS - but this will require Windows 10 or greater.
+I don't see why SCANS wouldn't work well within Windows Subsystem for Linux  (WSL) - but this will require Windows 10 or greater.
 I will investigate installation on older systems.  
   
-Once docker is installed, you will be free to run the installer with:  
+Once Docker is installed, you simply have to run the installer with:  
 
 ```  
 python3 installer.py --full  
 ```  
-This will create a <ins>bin/</ins> directory with five scripts specific to your system:  
+This will create a <ins>SCANS/Client/bin/</ins> directory with five scripts specific to your system:  
 ```  
 scans_start       # Start the monitoring process.  
 scans_build+start # Fully parse all available logs to date and start the monitoring process.  
-scans_rebuild     # Fully parse all available logs and create aggregated log. Do not activate monitoring process.  
-scans_stop        # Stop the SCANS process and delete the relevant container.  
-scans_status      # Read the log file that SCANS creates as it runs. Confirms scans is runninf and can be useful for troubleshooting.  
+scans_rebuild     # Fully parse all available logs and create aggregated log. Do not run monitoring process.  
+scans_stop        # Stop monitoring.  
+scans_status      # Read the log file that SCANS creates as it runs. Confirms scans is running and can be useful for troubleshooting.  
 ```  
 
 For first-time installations, the `bin/scans_build+start` is recommended. 
@@ -100,7 +100,7 @@ For first-time installations, the `bin/scans_build+start` is recommended.
 This can be run manually from the command line, or run as a system process to start SCANS automatically upon boot.
 This can be done by:  
 ```  
-sudo mv service /etc/systemd/scans_client.service  
+sudo cp service /etc/systemd/scans_client.service  
 sudo systemctl  
 sudo systemctl daemon-reload  
 sudo systemctl start scans_client.service 
@@ -108,17 +108,15 @@ sudo systemctl status scans_client.service
 sudo systemctl enable scans_client.service
 ```  
 
-should you wish to disable SCANS starting at boot time, you can use:  
+Should you wish to disable SCANS starting at boot time, you can use:  
 `sudo systemctl disable scans_client.service`  
   
-If you would like frequent command line access to SCANS, you can add the bin directory to your UNIX path ([online how-to](https://phoenixnap.com/kb/linux-add-to-path)).
+If you would like frequent command line access to SCANS, you can add the bin directory to your UNIX path ([online how-to](https://phoenixnap.com/kb/linux-add-to-path)).  
 
 
-## NOTES:
-- Do not edit/delete the files in the logging directory, as these are mount points for the SCANS scraper. If you do, you will need to stop and restart SCANS
+## NOTES:  
+- Do not edit/delete the files in the logging directory, as these are mount points for the SCANS scraper. If you do, you will need to stop and restart SCANS  
 
-
-## TO ADD:
-Check with SCANS is running as a system service?
-Add ./bin to path?
-Information for HLMU units?
+## TO ADD:  
+Create a check to see if SCANS is running as a system service?  
+Information for HLMU units?  
