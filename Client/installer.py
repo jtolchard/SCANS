@@ -1,3 +1,18 @@
+"""Installer for SCANS NMR Monitoring
+Installer does not take any arguments, should be run with: "python3 installer.py"
+Only requirements are a correctly editted clientparams.py file in the same 
+directory as installer.py. The paths and log files named in this file should not
+be changed. The output of the installer will be a ./bin folder containing scripts
+that are correctly configured to load and monitor the log files on your system.
+"""
+
+__author__ = "James Tolchard"
+__license__ = "GPLV3"
+__version__ = "0.5"
+__maintainer__ = "James Tolchard"
+__email__ = "james.tolchard@univ-lyon1.fr"
+__status__ = "Development"
+
 import clientparams
 import os.path
 import sys

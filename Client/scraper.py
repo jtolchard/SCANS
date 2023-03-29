@@ -1,6 +1,30 @@
-####
-#### VERSION 0.4
-####
+"""Logfile scraper for SCANS NMR Monitoring
+This file should not be altered. It is used within the docker container for 
+parsing the logs defined in clientparams.py. Under normal operation, scraper.py
+should not be run manually. The correctly configured commands will be generated
+by installer.py and written to ./bin.
+
+The possible arguments are:
+    --rebuild = creates a one-off logfile aggregated from the logs defined in
+                clientparams.py (should not be used with --rebuild-restart)
+
+    --rebuild = creates a logfile aggregated from the logs defined in
+                clientparams.py and continues active monitoring of these files.
+                (should not be used with --rebuild-restart)
+
+    --output-file = defines the name of the output logfile
+
+    --scan-frequency = How regularly the logs should be updated. The default 
+                       value is 60 seconds.
+"""
+
+__author__ = "James Tolchard"
+__license__ = "GPLV3"
+__version__ = "0.5"
+__maintainer__ = "James Tolchard"
+__email__ = "james.tolchard@univ-lyon1.fr"
+__status__ = "Development"
+
 import argparse
 import csv
 import sys
@@ -13,16 +37,6 @@ param_path = clientparams.__file__
 system_name = clientparams.system_name
 
 def get_metrics(metric_list, rebuild_metric_db):
-    """
-    Retrieves metrics stored as dictionaries in clientparams.
-
-    Args:
-        metric_list (list): A list of dictionaries containing information about the metrics.
-        rebuild_metric_db (bool): Whether to rebuild the metric database or not.
-
-    Returns:
-        A list of dictionaries containing the metric data.
-    """
 
     metrics = []
     #Under typical use, we only consider the last lines of the logfiles
