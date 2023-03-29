@@ -3,9 +3,6 @@ Simple Containerised Analysis for NMR Systems
 
 
 #TODO
-CORRECT SYSTEM TIME!
-
-
 
 
 
