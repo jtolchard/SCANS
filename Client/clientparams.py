@@ -45,8 +45,8 @@ shim_temp = {
 B0_field = {
     'name': 'B0_field',
     'use': True,
-    'path': '/Users/James/Code/NMR/SCANS/TestData/B0_field.log',
-    'dockerpath': '/root/scans/logs/field.log',
+    'path': '/Users/James/Code/NMR/SCANS/TestData/field.log',
+    'dockerpath': '/root/scans/logs/B0_field.log',
     'delim': ';',
     'datestamp_position': 0,
     'datavalue_position': 2,
@@ -67,8 +67,8 @@ events = {
 emptyexample = {
     'name': 'emptyexample',
     'use': True,
-    'path': '/Users/James/Code/NMR/SCANS/TestData/emptyexample.log',
-    'dockerpath': '/root/scans/logs/shim_temperature.log',
+    'path': '/Users/James/Code/NMR/SCANS/TestData/empty.log',
+    'dockerpath': '/root/scans/logs/emptyexample.log',
     'delim': ';',
     'datestamp_position': 0,
     'datavalue_position': 2,
