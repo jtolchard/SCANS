@@ -26,7 +26,7 @@ helium_level = {
     'dockerpath': '/root/scans/logs/helium_level.log',                          # DO NOT EDIT - mounted volume path used in container env
     'delim': ';',                                                               # The delimiter used by the file
     'datestamp_position': 0,                                                    # The position of the time/date data in the row (starts at zero!)
-    'datavalue_position': 1,                                                    # The position of the datav alue in the row (starts at zero!) 
+    'datavalue_position': 1,                                                    # The position of the data value in the row (starts at zero!) 
     'units': '%'                                                                # Desired unit of the output values
 }
 
