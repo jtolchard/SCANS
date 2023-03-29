@@ -13,6 +13,7 @@ __maintainer__ = "James Tolchard"
 __email__ = "james.tolchard@univ-lyon1.fr"
 __status__ = "Development"
 
+import argparse
 import clientparams
 import os.path
 import sys
@@ -27,9 +28,9 @@ log_name = 'demo_log.txt'
 param_path = clientparams.__file__
 
 def run_command(command):
-    popen = subprocess.Popen(command, stdin=PIPE, stdout=PIPE, stderr=PIPE)
-    popen.wait(500) # wait a little for docker to complete
-    return popen
+    subprocess.call(command, stdin=PIPE, stdout=PIPE, stderr=PIPE)
+    #popen.wait() # wait a little for docker to complete
+    #return popen
 
 def pathbuilder():
 
@@ -58,55 +59,81 @@ def pathbuilder():
         sys.exit(2)
     return path
 
-# Generate a path list for use with docker scripts
-path = pathbuilder()
+def install():
 
-# Unpack the bundled docker image
-print("Unpacking docker image")
-command = ["docker", "load", "-i", "docker/client.dkrimg"]
-run_command(command)
+    # Generate a path list for use with docker scripts
+    path = pathbuilder()
 
-# Wipe script if they already exist
-if os.path.exists(os.path.join(bin_path, "scans_start")):
-    print("Clearing existing scripts")
+    # Wipe script if they already exist
+    if os.path.exists(os.path.join(bin_path, "scans_start")):
+        print("Clearing existing scripts")
+        files = glob.glob(os.path.join(bin_path, "*"))
+        for f in files:
+                os.remove(f)
+
+    # Build Scripts
+    cmd = f"scans /usr/bin/python3 scraper.py"
+    output = f"-v {output_path}:/root/scans/logs"
+    timesync = f"-v /etc/localtime:/etc/localtime:ro"
+    start_cmd = (f"docker run --name scans -e PYTHONUNBUFFERED=1 -d {timesync} {path} {output} {cmd} --output-file ./logs/{log_name}")
+    rebuild_cmd = (f"docker run --name scans_rebuild -e PYTHONUNBUFFERED=1 -d {timesync} {path} {output} {cmd} --rebuild --output-file ./logs/{log_name}")
+    build_run_cmd = (f"docker run --name scans_w_rebuild -e PYTHONUNBUFFERED=1 -d {timesync} {path} {output} {cmd} --rebuild-restart --output-file ./logs/{log_name}")
+    stop_cmd = ("docker rm -f scans 2>/dev/null; docker rm -f scans_w_rebuild 2>/dev/null; echo 'scans stopped'")
+    status_cmd = ("docker logs scans")
+
+    # Write scripts
+    print("Writing executable scripts")
+    # Start
+    f = open(os.path.join(bin_path, "scans_start"),"w+")
+    f.write(start_cmd)
+    f.close()
+    # rebuild
+    f = open(os.path.join(bin_path, "scans_rebuild"),"w+")
+    f.write(rebuild_cmd)
+    f.close()
+    # Build and start
+    f = open(os.path.join(bin_path, "scans_build+start"),"w+")
+    f.write(build_run_cmd)
+    f.close()
+    # Stop
+    f = open(os.path.join(bin_path, "scans_stop"),"w+")
+    f.write(stop_cmd)
+    f.close()
+    # Status
+    f = open(os.path.join(bin_path, "scans_status"),"w+")
+    f.write(status_cmd)
+    f.close()
+
+    # Make scripts executable
     files = glob.glob(os.path.join(bin_path, "*"))
     for f in files:
-            os.remove(f)
+        os.chmod(f, 0o744)
 
-# Build Scripts
-cmd = f"scans /usr/bin/python3 scraper.py"
-output = f"-v {output_path}:/root/scans/logs"
-timesync = f"-v /etc/localtime:/etc/localtime:ro"
-start_cmd = (f"docker run --name scans -e PYTHONUNBUFFERED=1 -d {timesync} {path} {output} {cmd} --output-file ./logs/{log_name}")
-rebuild_cmd = (f"docker run --name scans_rebuild -e PYTHONUNBUFFERED=1 -d {timesync} {path} {output} {cmd} --rebuild --output-file ./logs/{log_name}")
-build_run_cmd = (f"docker run --name scans_w_rebuild -e PYTHONUNBUFFERED=1 -d {timesync} {path} {output} {cmd} --rebuild-restart --output-file ./logs/{log_name}")
-stop_cmd = ("docker rm -f scans 2>/dev/null; docker rm -f scans_w_rebuild 2>/dev/null; echo 'scans stopped'")
-status_cmd = ("docker logs scans")
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Install script for SCANS')
+    parser.add_argument('--full', action='store_true', help='build and store the client docker image', default=False)
+    args = parser.parse_args()
+    full = args.full
 
-# Write scripts
-print("Writing executable scripts")
-# Start
-f = open(os.path.join(bin_path, "scans_start"),"w+")
-f.write(start_cmd)
-f.close()
-# rebuild
-f = open(os.path.join(bin_path, "scans_rebuild"),"w+")
-f.write(rebuild_cmd)
-f.close()
-# Build and start
-f = open(os.path.join(bin_path, "scans_build+start"),"w+")
-f.write(build_run_cmd)
-f.close()
-# Stop
-f = open(os.path.join(bin_path, "scans_stop"),"w+")
-f.write(stop_cmd)
-f.close()
-# Status
-f = open(os.path.join(bin_path, "scans_status"),"w+")
-f.write(status_cmd)
-f.close()
+# Preparing for runtime
+# If you request a full bulid (regardless of what aleady exists), build a docker image and save it
+if full:
+    print("building docker image")
+    command = ["docker", "build", "-t", "scans", "-f", "docker/Dockerfile", "."]
+    run_command(command)
+    print("saving docker image")
+    command = ["docker", "save", "scans", "-o", "docker/client.dkrimg"]
+    run_command(command)
+# If you request a normal install - and the image already exists - simply load it
+elif os.path.exists("docker/client.dkrimg"):
+    # Unpack the bundled docker image
+    print("Unpacking docker image")
+    command = ["docker", "load", "-i", "docker/client.dkrimg"]
+    run_command(command)
+# Otherwise, if the image doesn't exist and you didn't request a full build, throw an error
+else: 
+    print("No docker image found. Please run a full installation with: 'python3 install.py --full'")
+    sys.exit(2)
 
-# Make scripts executable
-files = glob.glob(os.path.join(bin_path, "*"))
-for f in files:
-    os.chmod(f, 0o744)
+#@runtime
+install()
