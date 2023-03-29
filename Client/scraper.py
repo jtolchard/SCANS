@@ -35,14 +35,9 @@ def get_metrics(metric_list, rebuild_metric_db):
                     last_row = list(csv_reader)[-1]
                     if last_row:
                         metric = {"name": metric['name'], "date": last_row[metric['datestamp_position']], "value": last_row[metric['datavalue_position']]+metric['units']}
-
-                    # This works, but bloat the file. For now - removed
-                    #else:
-                    #    metric = {"name":metric['name'],  "date":datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S"), "error": f'error, log file empty. Check contents of {metric_logfile} defined in clientparams.py'}
-            #This works, but bloat the file. For now - removed
-            #else:
-            #    metric = {"name":metric['name'],  "date":datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S"), "error": f'error accessing log file {metric_logfile}. Check path in clientparams.py'}
-            metrics.append(metric)
+                        metrics.append(metric)
+            elif os.path.exists(metric_logfile) and os.path.getsize(metric_logfile) == 0:
+                print(f"Warning, {metric_logfile} is empty")     
         return metrics
 
     #Otherise, create a list of all datapoints for each metric from their log file
@@ -58,14 +53,17 @@ def get_metrics(metric_list, rebuild_metric_db):
                         if row:
                             metric_row = {"name": metric['name'], "date": row[metric['datestamp_position']], "value": row[metric['datavalue_position']]+metric['units']}
                             metrics.append(metric_row)
-            else:
-                metric_row = {"name":metric['name'],  "date":datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S"), "error": f'error accessing log file {metric_logfile}. Check path in clientparams.py'}
-                metrics.append(metric_row)
+            
+            elif os.path.exists(metric_logfile) and os.path.getsize(metric_logfile) == 0:
+                print(f"Warning, {metric_logfile} is empty")
+            #else:
+                #metric_row = {"name":metric['name'],  "date":datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S"), "error": f'error reading log file {metric_logfile}. Check file is path in clientparams.py'}
+                #metrics.append(metric_row)
         return metrics
         
 def build_output(output_file, rebuild_metric_db):
 
-    # If outputfile already exist, create it
+    # If outputfile doesn't exist, create it
     if not os.path.exists(output_file):
         open(output_file, 'a').close()
     
@@ -101,8 +99,10 @@ def build_output(output_file, rebuild_metric_db):
                 f.write(str(metric) + '\n')
 
 def run_monitoring(freq):
+    print(f"Running in monitoring-mode on {system_name}. Scanning every {freq} seconds.")
     while(True):
         build_output(output_file, False)
+        print("Scan run at "+datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S"))
         time.sleep(freq)
 
 if __name__ == '__main__':
