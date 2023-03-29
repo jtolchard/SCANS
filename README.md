@@ -46,7 +46,7 @@ Unpack the repository in a suitable location  and move to the Client directory:
 ```  
   
 Open clientparams.py with a text editor and revise the number and nature of any desired metrics. 
-Each metric is stored as a Python dictionaries, for example:  
+Each metric is stored as a Python dictionary (within curly braces), for example:  
 ```  
 helium_level = {  
     'name': 'helium_level',                              # Name of the variable  
@@ -58,7 +58,8 @@ helium_level = {
     'datavalue_position': 1,                             # The column position of the data value in the row (starts at zero!)   
     'units': '%'                                         # Desired unit of the output values  
 }  
-```  
+```
+
 You can also add additional metrics by adding new blocks.  
   
 It is fine to reference any log files that are currently empty, however the inclusion of incorrect paths will halt the installer.  
