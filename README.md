@@ -12,16 +12,14 @@ The Docker system is used for containerization; more information about Docker an
 <ins>**SCANS employs two flavours of container:**</ins>
 
 * <ins>**The Client**</ins>  
-The SCANS client is installed on each spectrometer or system that requires logging.  
-  
+The SCANS client is installed on each spectrometer or system that requires logging.
 Prior to installation, a parameter file should be setup with the system name and the definitions (names, paths, units, column positions, etc.,) for all the required metrics.
 Multiple metrics can be scraped from the same file and custom metrics can also be added. After installation, the client can either be manually started via the command line or configured to run 
 automatically at boot time (see Installation notes). When running, the client will reguarly check (by default every 60 seconds) for updates to the defined log files and create a aggregated 
 singular log file, with each record stored as a python dictionary.
 
 * <ins>**The Controller**</ins>  
-The SCANS controller should be installed on a single computer. It will gather metrics across all SCAN clients on a given network and provide a web interface for viewing the metric data.  
-  
+The SCANS controller should be installed on a single computer. It will gather metrics across all SCAN clients on a given network and provide a web interface for viewing the metric data.
 Future implementations of SCANS will comprise elements of system monitoring and user administration.
 
 
