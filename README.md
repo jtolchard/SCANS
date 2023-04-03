@@ -75,7 +75,7 @@ or
 `sudo apt-install docker` # if you are on a Debian / deb system.
 
 SCANS (client or controller) will run seemlessly [on MacOS (Intel and Apple Silicon)](https://docs.docker.com/desktop/install/mac-install/). 
-Alternatively, you can also install docker via a package manager like homebrew or ports.
+Alternatively, you can also install docker via a package manager such as homebrew or ports.
 
 SCANS has not currently been tested on Windows.
 I don't see why SCANS wouldn't work well within Windows Subsystem for Linux  (WSL) - but this will require Windows 10 or greater.
@@ -118,5 +118,10 @@ If you would like frequent command line access to SCANS, you can add the bin dir
 - Do not edit/delete the files in the logging directory, as these are mount points for the SCANS scraper. If you do, you will need to stop and restart SCANS  
 
 ## TO ADD:  
+NEED TO LOOK INTO VERYFYING DOCKER DAEMON IS RUNNING BEFORE RUNTIME!
 Create a check to see if SCANS is running as a system service?  
 Information for HLMU units?  
+Create a schematic for the readme showing the container and the Client:Controller system
+
+## SOURCES:  
+http://www2.chem.uic.edu/nmr/downloads/bruker/en-US/pdf/z31735.pdf
