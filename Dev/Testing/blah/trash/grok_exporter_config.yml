@@ -1,0 +1,17 @@
+global:
+    config_version: 2 #jumper two spaces forward
+input:
+  type: file
+  path: /opt/example/helium.log
+  readall: true
+grok:
+  patterns_dir: /etc/grok_exporter/patterns
+metrics:
+    - type: gauge
+      name: helium_level
+      help: 'The helium level value as stored in tye Bruker logs'
+      match: '%{TIMESTAMP_ISO8601:timestamp};%{NUMBER:helium_level}$'
+        labels: '600MHz'
+            user: '{{.helium_level}}'
+server:
+    port: 9144

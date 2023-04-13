@@ -1,0 +1,91 @@
+# SCANS docker-compose global config
+version: '3'
+services:
+  prom-short:
+    image: prom/prometheus:latest
+    hostname: prom-short
+    container_name: prom-short
+    restart: unless-stopped
+    volumes:
+      - ./configuration/prom-short.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus/prom-short_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=336h'
+    ports:
+      - 9090:9090
+    expose:
+      - "9090"
+
+  prom-long:
+    image: prom/prometheus:latest
+    hostname: prom-long
+    container_name: prom-long
+    restart: unless-stopped
+    volumes:
+      - ./configuration/prom-long.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus/prom-long_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=2y'
+    ports:
+      - 9091:9090
+    #expose:
+    #  - "9090"
+
+  node-exporter:
+    image: prom/node-exporter:latest
+    hostname: node-exporter
+    container_name: node-exporter
+    restart: unless-stopped
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      #- /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    expose:
+      - "9100"
+
+  grafana:
+    hostname: svr-grafana
+    container_name: grafana
+    image: grafana/grafana
+    user: "1000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=secure_pass
+    volumes:
+      - ./grafana/grafana_db:/var/lib/grafana
+      - ./screenshots:/usr/share/grafana/screen_grabs/
+    #which services are required to start before this one
+    depends_on:
+      - prom-short
+      - prom-long
+    ports:
+      - '3000:3000'
+  grok:
+    hostname: grok
+    container_name: grok
+    image: dalongrong/grok-exporter
+    #    image: fstab/grok_exporter-compiler-arm32v6
+    #    command:
+    #      - '-config ./grok/grok_exporter_config.yml'
+    #    #  - --platform linux/arm64/
+    volumes: 
+    - "./example:/opt/example"
+    - "./configuration/grok.yml:/grok/config.yml"
+    ports: 
+    - "9144:9144"
+    expose:
+      - "9144"

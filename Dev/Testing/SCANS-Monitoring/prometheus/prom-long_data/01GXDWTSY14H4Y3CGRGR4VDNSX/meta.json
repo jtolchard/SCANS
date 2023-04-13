@@ -1,0 +1,17 @@
+{
+	"ulid": "01GXDWTSY14H4Y3CGRGR4VDNSX",
+	"minTime": 1680861600000,
+	"maxTime": 1680868800000,
+	"stats": {
+		"numSamples": 6566,
+		"numSeries": 63,
+		"numChunks": 63
+	},
+	"compaction": {
+		"level": 1,
+		"sources": [
+			"01GXDWTSY14H4Y3CGRGR4VDNSX"
+		]
+	},
+	"version": 1
+}
