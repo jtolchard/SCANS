@@ -1,0 +1,92 @@
+# SCANS docker-compose global config
+version: '3'
+services:
+  # Short term prometheus DB for computer metrics
+  prom-short:
+    user: root
+    image: prom/prometheus:latest
+    hostname: prom-short
+    container_name: prom-short
+    restart: unless-stopped
+    volumes:
+      - ./configuration/prom-short.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus/prom-short_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=336h'
+    ports:
+      - 9090:9090
+    expose:
+      - "9090"
+    # Provide aliases for machine IPs
+    extra_hosts:
+      - "CRMN-Server:172.17.0.1"
+      - "300MHz:192.168.103.73"
+      - "400MHz:192.168.103.3"
+      - "500MHz:192.168.103.17"
+      - "600MHz:192.168.103.6"
+      - "700MHz:192.168.103.4"
+      - "800MHz_NB:192.168.103.18"
+      - "800MHz_WB:192.168.103.19"
+      - "1000MHz_WB:192.168.103.75"
+
+  # Long term prometheus DB for cryogen metrics
+  prom-long:
+    user: root
+    image: prom/prometheus:latest
+    hostname: prom-long
+    container_name: prom-long
+    restart: unless-stopped
+    volumes:
+      - ./configuration/prom-long.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus/prom-long_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=2y'
+    ports:
+      - 9091:9090
+    expose:
+      - "9091"
+    # Provide aliases for machine IPs
+    extra_hosts:
+      - "CRMN-Server:172.17.0.1"
+      - "300MHz:192.168.103.73"
+      - "400MHz:192.168.103.3"
+      - "500MHz:192.168.103.17"
+      - "600MHz:192.168.103.6"
+      - "700MHz:192.168.103.4"
+      - "800MHz_NB:192.168.103.18"
+      - "800MHz_WB:192.168.103.19"
+      - "1000MHz_WB:192.168.103.75"
+
+  grafana:
+    user: root
+    image: grafana/grafana
+    hostname: svr-grafana
+    container_name: grafana
+    environment:
+      # Define web interface password
+      - GF_SECURITY_ADMIN_PASSWORD=secure_pass
+      # Define a server URL so it doesn't self-reference as "localhost" (needed for message in Teams webhook)
+      - GF_SERVER_ROOT_URL=http://192.168.103.10:3000
+    volumes:
+      - ./grafana/grafana_db:/var/lib/grafana
+      # Used to map VNC screenshots for loading correctly into grafana
+      - ./screenshots:/usr/share/grafana/public/img2/
+    #which services are required to start before this one
+    depends_on:
+      - prom-short
+      - prom-long
+    ports:
+      - '3000:3000'
+    # Provide host for machine IP
+    extra_hosts:
+      - "CRMN-Server:172.17.0.1"
