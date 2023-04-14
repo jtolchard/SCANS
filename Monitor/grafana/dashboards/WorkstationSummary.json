@@ -1,0 +1,1184 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": {
+            "type": "grafana",
+            "uid": "-- Grafana --"
+          },
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "target": {
+            "limit": 100,
+            "matchAny": false,
+            "tags": [],
+            "type": "dashboard"
+          },
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 11,
+    "links": [],
+    "liveNow": false,
+    "panels": [
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "lOCtJjLVk"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "green",
+              "mode": "thresholds"
+            },
+            "custom": {
+              "align": "auto",
+              "cellOptions": {
+                "type": "auto"
+              },
+              "inspect": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "string"
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Status"
+              },
+              "properties": [
+                {
+                  "id": "mappings",
+                  "value": [
+                    {
+                      "options": {
+                        "0": {
+                          "color": "red",
+                          "index": 1,
+                          "text": "Offline"
+                        },
+                        "1": {
+                          "color": "green",
+                          "index": 0,
+                          "text": "Online"
+                        }
+                      },
+                      "type": "value"
+                    }
+                  ]
+                },
+                {
+                  "id": "custom.align",
+                  "value": "center"
+                },
+                {
+                  "id": "custom.cellOptions",
+                  "value": {
+                    "type": "color-text"
+                  }
+                },
+                {
+                  "id": "custom.width",
+                  "value": 100
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Uptime"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "s"
+                },
+                {
+                  "id": "custom.align",
+                  "value": "center"
+                },
+                {
+                  "id": "custom.cellOptions",
+                  "value": {
+                    "mode": "basic",
+                    "type": "gauge"
+                  }
+                },
+                {
+                  "id": "color",
+                  "value": {
+                    "mode": "continuous-BlPu"
+                  }
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "CRMN Machine"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 150
+                },
+                {
+                  "id": "custom.cellOptions",
+                  "value": {
+                    "type": "auto"
+                  }
+                },
+                {
+                  "id": "thresholds",
+                  "value": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "semi-dark-blue",
+                        "value": null
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "OS"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 200
+                },
+                {
+                  "id": "custom.align",
+                  "value": "center"
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 11,
+          "w": 11,
+          "x": 0,
+          "y": 0
+        },
+        "id": 2,
+        "options": {
+          "footer": {
+            "countRows": false,
+            "fields": "",
+            "reducer": [
+              "sum"
+            ],
+            "show": false
+          },
+          "frameIndex": 0,
+          "showHeader": true,
+          "sortBy": [
+            {
+              "desc": true,
+              "displayName": "CRMN Machine"
+            }
+          ]
+        },
+        "pluginVersion": "9.4.7",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "lOCtJjLVk"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "label_replace(up{job=\"WorkstationMetrics\"}, \"short_hostname\", \"$1\", \"instance\", \"(.*):.*\")",
+            "format": "table",
+            "instant": true,
+            "legendFormat": "__auto",
+            "range": false,
+            "refId": "Status"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "lOCtJjLVk"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "node_time_seconds{job=\"WorkstationMetrics\"} - node_boot_time_seconds{job=\"WorkstationMetrics\"}",
+            "format": "table",
+            "hide": false,
+            "instant": true,
+            "legendFormat": "__auto",
+            "range": false,
+            "refId": "Uptime"
+          }
+        ],
+        "title": "NMR Workstation Summary",
+        "transformations": [
+          {
+            "id": "joinByField",
+            "options": {
+              "byField": "instance",
+              "mode": "outer"
+            }
+          },
+          {
+            "id": "organize",
+            "options": {
+              "excludeByName": {
+                "Time 1": true,
+                "Time 2": true,
+                "Time 3": true,
+                "Time 4": true,
+                "Value #Chassis": true,
+                "Value #IP": true,
+                "__name__": true,
+                "__name__ 2": true,
+                "bios_date": true,
+                "bios_vendor": true,
+                "bios_version": true,
+                "board_asset_tag": true,
+                "board_name": true,
+                "board_vendor": true,
+                "board_version": true,
+                "chassis_asset_tag": false,
+                "chassis_vendor": true,
+                "id": true,
+                "id_like": true,
+                "instance": true,
+                "job 1": true,
+                "job 2": true,
+                "job 3": true,
+                "job 4": true,
+                "name": true,
+                "version": true,
+                "version_id": true
+              },
+              "indexByName": {},
+              "renameByName": {
+                "Time 1": "",
+                "Value #A": "Uptime",
+                "Value #Chassis": "Chassis",
+                "Value #Status": "Status",
+                "Value #Uptime": "Uptime",
+                "board_asset_tag": "",
+                "instance": "CRMN Machine",
+                "job 2": "",
+                "pretty_name": "OS",
+                "product_name": "PC Type",
+                "short_hostname": "CRMN Machine",
+                "system_vendor": "Vendor",
+                "version_id": ""
+              }
+            }
+          }
+        ],
+        "type": "table"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "lOCtJjLVk"
+        },
+        "description": "node_filesystem_free_bytes{mountpoint=\"/opt\"}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "green",
+              "mode": "thresholds"
+            },
+            "custom": {
+              "align": "center",
+              "cellOptions": {
+                "type": "auto"
+              },
+              "filterable": false,
+              "inspect": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "string"
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "CRMN Machine"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 150
+                },
+                {
+                  "id": "custom.cellOptions",
+                  "value": {
+                    "type": "auto"
+                  }
+                },
+                {
+                  "id": "thresholds",
+                  "value": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "semi-dark-blue",
+                        "value": null
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "custom.align",
+                  "value": "left"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Data Disk"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "bytes"
+                },
+                {
+                  "id": "custom.width",
+                  "value": 80
+                },
+                {
+                  "id": "color",
+                  "value": {
+                    "fixedColor": "#5eaaf55e",
+                    "mode": "fixed"
+                  }
+                },
+                {
+                  "id": "custom.cellOptions",
+                  "value": {
+                    "mode": "basic",
+                    "type": "color-background"
+                  }
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Data Mount"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 130
+                },
+                {
+                  "id": "custom.cellOptions",
+                  "value": {
+                    "mode": "basic",
+                    "type": "color-background"
+                  }
+                },
+                {
+                  "id": "color",
+                  "value": {
+                    "fixedColor": "#5eaaf55e",
+                    "mode": "fixed"
+                  }
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Data Disk Free"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "percent"
+                },
+                {
+                  "id": "custom.width",
+                  "value": 120
+                },
+                {
+                  "id": "custom.cellOptions",
+                  "value": {
+                    "mode": "basic",
+                    "type": "color-background"
+                  }
+                },
+                {
+                  "id": "color",
+                  "value": {
+                    "fixedColor": "#5eaaf55e",
+                    "mode": "fixed"
+                  }
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Root Disk"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "bytes"
+                },
+                {
+                  "id": "custom.width",
+                  "value": 80
+                },
+                {
+                  "id": "custom.cellOptions",
+                  "value": {
+                    "mode": "basic",
+                    "type": "color-background"
+                  }
+                },
+                {
+                  "id": "color",
+                  "value": {
+                    "fixedColor": "#85a981",
+                    "mode": "fixed"
+                  }
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Root Disk Free"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "percent"
+                },
+                {
+                  "id": "custom.width",
+                  "value": 80
+                },
+                {
+                  "id": "custom.cellOptions",
+                  "value": {
+                    "mode": "basic",
+                    "type": "color-background"
+                  }
+                },
+                {
+                  "id": "color",
+                  "value": {
+                    "fixedColor": "#85a981",
+                    "mode": "fixed"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 11,
+          "w": 12,
+          "x": 11,
+          "y": 0
+        },
+        "id": 4,
+        "options": {
+          "footer": {
+            "countRows": false,
+            "fields": [],
+            "reducer": [
+              "sum"
+            ],
+            "show": false
+          },
+          "frameIndex": 0,
+          "showHeader": true,
+          "sortBy": [
+            {
+              "desc": true,
+              "displayName": "CRMN Machine"
+            }
+          ]
+        },
+        "pluginVersion": "9.4.7",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "lOCtJjLVk"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "label_replace(up{job=\"WorkstationMetrics\"}, \"short_hostname\", \"$1\", \"instance\", \"(.*):.*\")",
+            "format": "table",
+            "instant": true,
+            "legendFormat": "__auto",
+            "range": false,
+            "refId": "Status"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "lOCtJjLVk"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "node_filesystem_free_bytes{job=\"WorkstationMetrics\", mountpoint=\"/opt/nmrdata\"}",
+            "format": "table",
+            "hide": false,
+            "instant": false,
+            "interval": "",
+            "legendFormat": "__auto",
+            "range": true,
+            "refId": "DataDisk"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "lOCtJjLVk"
+            },
+            "editorMode": "code",
+            "expr": "(node_filesystem_avail_bytes{job=\"WorkstationMetrics\", mountpoint=\"/opt/nmrdata\"}  * 100) / node_filesystem_size_bytes{job=\"WorkstationMetrics\", mountpoint=\"/opt/nmrdata\"}",
+            "format": "table",
+            "hide": false,
+            "legendFormat": "__auto",
+            "range": true,
+            "refId": "DataDiskFree"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "lOCtJjLVk"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "node_filesystem_free_bytes{job=\"WorkstationMetrics\", mountpoint=\"/\"}",
+            "format": "table",
+            "hide": false,
+            "instant": false,
+            "interval": "",
+            "legendFormat": "__auto",
+            "range": true,
+            "refId": "HomeDisk"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "lOCtJjLVk"
+            },
+            "editorMode": "code",
+            "expr": "(node_filesystem_avail_bytes{job=\"WorkstationMetrics\", mountpoint=\"/\"}  * 100) / node_filesystem_size_bytes{job=\"WorkstationMetrics\", mountpoint=\"/\"}",
+            "format": "table",
+            "hide": false,
+            "legendFormat": "__auto",
+            "range": true,
+            "refId": "HomeDiskFree"
+          }
+        ],
+        "title": "NMR Workstation Storage",
+        "transformations": [
+          {
+            "id": "joinByField",
+            "options": {
+              "byField": "instance",
+              "mode": "outer"
+            }
+          },
+          {
+            "id": "organize",
+            "options": {
+              "excludeByName": {
+                "Time 1": true,
+                "Time 2": true,
+                "Time 3": true,
+                "Time 4": true,
+                "Time 5": true,
+                "Time 6": true,
+                "Value #Chassis": true,
+                "Value #IP": true,
+                "Value #Status": true,
+                "Value #Uptime": true,
+                "__name__": true,
+                "__name__ 1": true,
+                "__name__ 2": true,
+                "__name__ 3": true,
+                "__name__ 4": true,
+                "bios_date": true,
+                "bios_vendor": true,
+                "bios_version": true,
+                "board_asset_tag": true,
+                "board_name": true,
+                "board_vendor": true,
+                "board_version": true,
+                "chassis_asset_tag": false,
+                "chassis_vendor": true,
+                "device": true,
+                "device 2": true,
+                "device 4": true,
+                "fstype": true,
+                "fstype 2": true,
+                "fstype 4": true,
+                "id": true,
+                "id_like": true,
+                "instance": true,
+                "job 1": true,
+                "job 2": true,
+                "job 3": true,
+                "job 4": true,
+                "job 5": true,
+                "job 6": true,
+                "mountpoint 2": true,
+                "mountpoint 3": true,
+                "mountpoint 4": true,
+                "name": true,
+                "short_hostname": false,
+                "version": true,
+                "version_id": true
+              },
+              "indexByName": {
+                "Time 1": 6,
+                "Time 2": 10,
+                "Time 3": 13,
+                "Time 4": 28,
+                "Time 5": 30,
+                "Time 6": 33,
+                "Value #Chassis": 27,
+                "Value #Cores": 1,
+                "Value #Disk": 3,
+                "Value #Mem": 2,
+                "Value #Status": 9,
+                "Value #Uptime": 12,
+                "__name__ 1": 7,
+                "__name__ 2": 14,
+                "__name__ 3": 31,
+                "__name__ 4": 34,
+                "bios_date": 15,
+                "bios_vendor": 16,
+                "bios_version": 17,
+                "board_asset_tag": 25,
+                "board_name": 18,
+                "board_vendor": 19,
+                "board_version": 20,
+                "chassis_asset_tag": 26,
+                "chassis_vendor": 21,
+                "device": 35,
+                "fstype": 36,
+                "instance": 5,
+                "job 1": 8,
+                "job 2": 11,
+                "job 3": 22,
+                "job 4": 29,
+                "job 5": 32,
+                "job 6": 37,
+                "mountpoint": 4,
+                "product_name": 23,
+                "short_hostname": 0,
+                "system_vendor": 24
+              },
+              "renameByName": {
+                "Time 1": "",
+                "Value #A": "Uptime",
+                "Value #CPU": "Cores",
+                "Value #Chassis": "",
+                "Value #Cores": "Cores",
+                "Value #DataDisk": "Data Disk",
+                "Value #DataDiskFree": "Data Disk Free",
+                "Value #Disk": "Data Disk",
+                "Value #HomeDisk": "Root Disk",
+                "Value #HomeDiskFree": "Root Disk Free",
+                "Value #Mem": "RAM",
+                "Value #Status": "Status",
+                "Value #Uptime": "Uptime",
+                "board_asset_tag": "",
+                "chassis_asset_tag": "Asset tag",
+                "device 2": "",
+                "instance": "",
+                "job 2": "",
+                "job 4": "",
+                "mountpoint": "Mount",
+                "mountpoint 1": "Data Mount",
+                "mountpoint 3": "Root Mount",
+                "pretty_name": "OS",
+                "product_name": "PC Type",
+                "short_hostname": "CRMN Machine",
+                "system_vendor": "Vendor",
+                "version_id": ""
+              }
+            }
+          }
+        ],
+        "type": "table"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "lOCtJjLVk"
+        },
+        "description": "node_filesystem_free_bytes{mountpoint=\"/opt\"}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "green",
+              "mode": "thresholds"
+            },
+            "custom": {
+              "align": "center",
+              "cellOptions": {
+                "type": "auto"
+              },
+              "filterable": false,
+              "inspect": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "string"
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "CRMN Machine"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 120
+                },
+                {
+                  "id": "custom.cellOptions",
+                  "value": {
+                    "type": "auto"
+                  }
+                },
+                {
+                  "id": "thresholds",
+                  "value": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "semi-dark-blue",
+                        "value": null
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": "custom.align",
+                  "value": "left"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "PC Type"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 200
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Vendor"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 75
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Asset tag"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 125
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Cores"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 75
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "RAM"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "bytes"
+                },
+                {
+                  "id": "custom.width",
+                  "value": 75
+                },
+                {
+                  "id": "decimals"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Data Disk"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "bytes"
+                },
+                {
+                  "id": "custom.width",
+                  "value": 80
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "OS"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 180
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 11,
+          "w": 16,
+          "x": 0,
+          "y": 11
+        },
+        "id": 3,
+        "options": {
+          "footer": {
+            "countRows": false,
+            "fields": "",
+            "reducer": [
+              "sum"
+            ],
+            "show": false
+          },
+          "frameIndex": 0,
+          "showHeader": true,
+          "sortBy": [
+            {
+              "desc": true,
+              "displayName": "Space"
+            }
+          ]
+        },
+        "pluginVersion": "9.4.7",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "lOCtJjLVk"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "label_replace(up{job=\"WorkstationMetrics\"}, \"short_hostname\", \"$1\", \"instance\", \"(.*):.*\")",
+            "format": "table",
+            "instant": true,
+            "legendFormat": "__auto",
+            "range": false,
+            "refId": "Status"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "lOCtJjLVk"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "node_time_seconds{job=\"WorkstationMetrics\"} - node_boot_time_seconds{job=\"WorkstationMetrics\"}",
+            "format": "table",
+            "hide": false,
+            "instant": true,
+            "legendFormat": "__auto",
+            "range": false,
+            "refId": "Uptime"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "lOCtJjLVk"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "node_dmi_info{job=\"WorkstationMetrics\"}",
+            "format": "table",
+            "hide": false,
+            "instant": true,
+            "legendFormat": "__auto",
+            "range": false,
+            "refId": "Chassis"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "lOCtJjLVk"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "count without(cpu, mode) (node_cpu_seconds_total{mode=\"idle\"})",
+            "format": "table",
+            "hide": false,
+            "instant": true,
+            "legendFormat": "__auto",
+            "range": false,
+            "refId": "Cores"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "lOCtJjLVk"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "node_memory_MemTotal_bytes{job=\"WorkstationMetrics\"}",
+            "format": "table",
+            "hide": false,
+            "instant": true,
+            "legendFormat": "__auto",
+            "range": false,
+            "refId": "Mem"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "lOCtJjLVk"
+            },
+            "editorMode": "code",
+            "expr": "node_os_info{job=\"WorkstationMetrics\"}",
+            "format": "table",
+            "hide": false,
+            "legendFormat": "__auto",
+            "range": true,
+            "refId": "OS"
+          }
+        ],
+        "title": "NMR Workstation Details",
+        "transformations": [
+          {
+            "id": "joinByField",
+            "options": {
+              "byField": "instance",
+              "mode": "outer"
+            }
+          },
+          {
+            "id": "organize",
+            "options": {
+              "excludeByName": {
+                "Time 1": true,
+                "Time 2": true,
+                "Time 3": true,
+                "Time 4": true,
+                "Time 5": true,
+                "Time 6": true,
+                "Value #Chassis": true,
+                "Value #IP": true,
+                "Value #OS": true,
+                "Value #Status": true,
+                "Value #Uptime": true,
+                "__name__": true,
+                "__name__ 1": true,
+                "__name__ 2": true,
+                "__name__ 3": true,
+                "__name__ 4": true,
+                "bios_date": true,
+                "bios_vendor": true,
+                "bios_version": true,
+                "board_asset_tag": true,
+                "board_name": true,
+                "board_vendor": true,
+                "board_version": true,
+                "chassis_asset_tag": false,
+                "chassis_vendor": true,
+                "device": true,
+                "fstype": true,
+                "id": true,
+                "id_like": true,
+                "instance": true,
+                "job 1": true,
+                "job 2": true,
+                "job 3": true,
+                "job 4": true,
+                "job 5": true,
+                "job 6": true,
+                "name": true,
+                "short_hostname": false,
+                "version": true,
+                "version_id": true
+              },
+              "indexByName": {
+                "Time 1": 5,
+                "Time 2": 9,
+                "Time 3": 12,
+                "Time 4": 27,
+                "Time 5": 29,
+                "Time 6": 32,
+                "Value #Chassis": 26,
+                "Value #Cores": 1,
+                "Value #Mem": 2,
+                "Value #OS": 40,
+                "Value #Status": 8,
+                "Value #Uptime": 11,
+                "__name__ 1": 6,
+                "__name__ 2": 13,
+                "__name__ 3": 30,
+                "__name__ 4": 33,
+                "bios_date": 14,
+                "bios_vendor": 15,
+                "bios_version": 16,
+                "board_asset_tag": 24,
+                "board_name": 17,
+                "board_vendor": 18,
+                "board_version": 19,
+                "chassis_asset_tag": 25,
+                "chassis_vendor": 20,
+                "id": 35,
+                "id_like": 36,
+                "instance": 4,
+                "job 1": 7,
+                "job 2": 10,
+                "job 3": 21,
+                "job 4": 28,
+                "job 5": 31,
+                "job 6": 34,
+                "name": 37,
+                "pretty_name": 3,
+                "product_name": 22,
+                "short_hostname": 0,
+                "system_vendor": 23,
+                "version": 38,
+                "version_id": 39
+              },
+              "renameByName": {
+                "Time 1": "",
+                "Value #A": "Uptime",
+                "Value #CPU": "Cores",
+                "Value #Chassis": "",
+                "Value #Cores": "Cores",
+                "Value #Disk": "Data Disk",
+                "Value #Mem": "RAM",
+                "Value #Status": "Status",
+                "Value #Uptime": "Uptime",
+                "board_asset_tag": "",
+                "chassis_asset_tag": "Asset tag",
+                "instance": "",
+                "job 2": "",
+                "job 4": "",
+                "mountpoint": "Mount",
+                "pretty_name": "OS",
+                "product_name": "PC Type",
+                "short_hostname": "CRMN Machine",
+                "system_vendor": "Vendor",
+                "version_id": ""
+              }
+            }
+          }
+        ],
+        "type": "table"
+      }
+    ],
+    "refresh": "",
+    "revision": 1,
+    "schemaVersion": 38,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+      "list": []
+    },
+    "time": {
+      "from": "now-6h",
+      "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "",
+    "title": "Workstation Summary",
+    "uid": "qqwVagP4k",
+    "version": 36,
+    "weekStart": ""
+  }
