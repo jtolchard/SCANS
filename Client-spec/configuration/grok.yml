@@ -17,6 +17,6 @@ metrics:
       labels:
           user: '{{.helium}}'
           date: '{{.timestamp}}'
-          spec: 'XXXMHz'
+          spec: '$SPECT_NAME'
 server:
     port: 9144
