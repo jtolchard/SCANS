@@ -2,21 +2,37 @@ global:
     config_version: 2
 input:
     type: file
-    path: /opt/example/helium.log
-    #readall: true
+    #TRY AND KNOCK THIS BACK TO JUST "/OPT/LOGS/"
+    path: /opt/logs/heliumlog
+    readall: false
 grok:
     patterns_dir: ./patterns
 metrics:
     - type: gauge
       name: helium_level
       help: The helium level value as stored in the Bruker logs
-      path: /opt/example/helium.log
-      match: '%{TIMESTAMP_ISO8601:timestamp};%{NUMBER:helium}'
-      value: '{{.helium}}'
+      path: /opt/logs/heliumlog
+      # MICS TS4.1 log w/ N2 level
+      match: '%{GREEDYDATA:timestamp} : helium level =\s*%{NUMBER:helium_level} %, nitrogen level =\s*%{NUMBER:nitrogen_level} %, field =\s*%{NUMBER:field}'
+      value: '{{.helium_level}}'
       cumulative: false
-      labels:
-          user: '{{.helium}}'
-          date: '{{.timestamp}}'
-          spec: '$SPECT_NAME'
+ #     labels:
+    - type: gauge
+      name: nitrogen_level
+      help: The nitrogen level value as stored in the Bruker logs
+      path: /opt/logs/heliumlog
+      # MICS TS4.1 log w/ N2 level
+      match: '%{GREEDYDATA:timestamp} : helium level =\s*\d* %, nitrogen level =\s*%{NUMBER:nitrogen_level} %{GREEDYDATA}'
+      value: '{{.nitrogen_level}}'
+      cumulative: false
+ #     labels:
+    - type: gauge
+      name: field
+      help: The field parameter as stored in the Bruker logs
+      path: /opt/logs/heliumlog
+      match: '%{GREEDYDATA:timestamp} : helium level =\s*\d* %, nitrogen level =\s*\d*\s*%, field =\s*%{NUMBER:field}'
+      value: '{{.field}}'
+      cumulative: false
+#      labels:
 server:
     port: 9144

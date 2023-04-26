@@ -1,0 +1,8 @@
+[Unit]
+Description=Bruker MICS Monitoring
+
+[Service]
+ExecStart=/opt/Bruker/mics/runmicsctrl
+
+[Install]
+WantedBy=multi-user.target
