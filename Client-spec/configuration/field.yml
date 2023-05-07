@@ -1,0 +1,31 @@
+global:
+    config_version: 2
+input:
+    type: file
+    path: /opt/logs/field.log
+grok:
+    patterns_dir: ./patterns
+metrics:
+    - type: gauge
+      name: field_fu
+      help: The field level value (FU) as stored in the MICS logs
+      path: /opt/logs/field.log
+      match: '^%{TIMESTAMP_ISO8601:timestamp};%{NUMBER:field_fu}'
+      value: '{{.field_fu}}'
+      cumulative: false
+    - type: gauge
+      name: field_hz
+      help: The field level value (Hz) as stored in the MICS logs
+      path: /opt/logs/field.log
+      match: '^%{TIMESTAMP_ISO8601:timestamp};%{NUMBER};%{NUMBER:field_hz}'
+      value: '{{.field_hz}}'
+      cumulative: false
+    - type: gauge
+      name: field_1h
+      help: The field level value (1H) as stored in the MICS logs
+      path: /opt/logs/field.log
+      match: '^%{TIMESTAMP_ISO8601:timestamp};%{NUMBER};%{NUMBER};%{NUMBER:field_1h}'
+      value: '{{.field_1h}}'
+      cumulative: false
+server:
+    port: 9144
