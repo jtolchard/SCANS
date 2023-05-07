@@ -2,7 +2,7 @@ global:
     config_version: 2
 input:
     type: file
-    path: /opt/logs/heliumlog
+    path: /opt/logs/helium.log
     readall: false
 grok:
     patterns_dir: ./patterns

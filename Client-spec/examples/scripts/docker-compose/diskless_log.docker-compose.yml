@@ -31,7 +31,7 @@ services:
     container_name: SCANS-Helium
     restart: unless-stopped
     volumes:
-    #- "./examples/logs:/opt/logs"
+    #- "./examples/logs/diskless:/opt/logs"
     - "/usr/diskless/prog/logfiles:/opt/logs:ro"
     - "./configuration/helium.yml:/grok/config.yml"
     ports:
@@ -44,7 +44,7 @@ services:
     container_name: SCANS-Nitrogen
     restart: unless-stopped
     volumes:
-    #- "./examples/logs:/opt/logs"
+    #- "./examples/logs/diskless:/opt/logs"
     - "/usr/diskless/prog/logfiles:/opt/logs:ro"
     - "./configuration/nitrogen.yml:/grok/config.yml"
     ports:
@@ -57,7 +57,7 @@ services:
     container_name: SCANS-Field
     restart: unless-stopped
     volumes:
-    #- "./examples/logs:/opt/logs"
+    #- "./examples/logs/diskless:/opt/logs"
     - "/usr/diskless/prog/logfiles:/opt/logs:ro"
     - "./configuration/field.yml:/grok/config.yml"
     ports:
