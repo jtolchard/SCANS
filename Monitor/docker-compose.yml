@@ -34,7 +34,7 @@ services:
       - "800MHz_WB:192.168.103.19"
       - "1000MHz_WB:192.168.103.75"
 
-  # Long term prometheus DB for cryogen metrics
+  # Long term prometheus DB for spectrometer metrics
   prom-long:
     user: root
     image: prom/prometheus:latest

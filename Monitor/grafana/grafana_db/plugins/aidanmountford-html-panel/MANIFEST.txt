@@ -1,0 +1,48 @@
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+{
+  "manifestVersion": "2.0.0",
+  "signatureType": "community",
+  "signedByOrg": "grafana",
+  "signedByOrgName": "Grafana Labs",
+  "plugin": "aidanmountford-html-panel",
+  "version": "0.0.2",
+  "time": 1622740782947,
+  "keyId": "7e4d0c6a708866e7",
+  "files": {
+    "html_ctrl.js.map": "2caa41a34fb44fe6ac995e3c02fd3f8b90ed3ec1af4ac0e61591fc07c1c70cb9",
+    "polyfills.js.map": "bd92906901a9efe75ef42440dd3b880209a72a89fc2c14e2fd426118b7685e47",
+    "module.html": "891328f0269753ae1f11b943373e1572b85811a811289121f9b32289ce9b80a6",
+    "polyfills.js": "95ffd32d521681abd91d9caafe24a57f738b8ab0be76efc8d86ec9ddbd20ed3c",
+    "node_modules/brace/mode/javascript.js": "f8c8d44e800efbf80b582d8c6db982a9a48ffa0d23657e6e5bdd4899b2e57f2d",
+    "node_modules/brace/ext/language_tools.js": "7c1a9d963abde5494275bbdae5b29db37a4957f75c6506b7c131311948a30c80",
+    "node_modules/brace/index.js": "edd3c9f1853ff8272c2d2a116b31eb38746456622ab7914dfccd18c011914887",
+    "node_modules/brace/theme/tomorrow_night_bright.js": "0a4157986e2b120f2541e5a964d9b5311d83967bede7cac3ce5af0309c14f67d",
+    "node_modules/brace/worker/xml.js": "10068d244c1d0fd625022383db87b96f8ec8d56ccc931db8e8a718cc674e8131",
+    "node_modules/brace/worker/javascript.js": "5b0bb2f2c64a76de270922b44f9ab00c9e5f76b3e258d3b81ab7c8e975af76bf",
+    "module.js.map": "d16ef858d51f67f86cc58682c7c0b5f3100fa1fdd668c20b2bddef51f4901d21",
+    "rendering.js": "ab18abffcfc566008b92d2146c5926b5f90f7629f5720e1f53eee528075a4caf",
+    "html_ctrl.js": "1dea91ad0eba1ae6623b4bd7e1b574f9b1f974c78800df053c0094e047b0b462",
+    "plugin.json": "008bac96f07a194cc074351445a19c05bfbe8e7308825cb31f71336b80ff0847",
+    "rendering.js.map": "d9694ce64ed91c2a47e05508eb426492bdff4af101820a85af2ec20670938bcb",
+    "README.md": "96d52b6bf0070dabc20c729ac747a27058e3679953789bd50d692cdd68178c31",
+    "img/html-panel-logo-small.png": "2a3a73dc38347509ecd8f86c48b84d2841e2d026a56e792a44d6b2a363e5e4bc",
+    "img/html-panel-logo-large.png": "0b5dbc5e9ddbe2ff862a19d86e892eeeafbc916e74ccf7f7b91781e550c0239f",
+    "module.js": "30da21790a2b913b37f254eea02544f43de7437af333664a0e7db5ffcd377ae1",
+    "partials/blank.html": "6adc175599a335b096705123a42bd8b873ff0a69e8fe8ada62c1b10ac774b9e1",
+    "partials/editor_html.html": "d7fae040f0727da2273c9f0d3817dffc22596616e3cb1fbe8871050576ec56a6",
+    "partials/editor_events.html": "7ecd3ca6835a70b85751576db62da59b4d69beb69b43d0e8246ae03b90125493"
+  }
+}
+-----BEGIN PGP SIGNATURE-----
+Version: OpenPGP.js v4.10.1
+Comment: https://openpgpjs.org
+
+wqEEARMKAAYFAmC5Dy8ACgkQfk0ManCIZuf3IgIJAUnxgbov9bdOMFFg0x5N
+Hg69HgJdtibsEdQj8kuSrQcLTqdAFVtoFXaG8fpf9RFRL0tE81o4NL9zZ2cD
+VoXlofZSAgd8Db9chuOGZI4R7tjmcGMhrFInc+NQwSsbx2HIM7ei7Kd25xIv
+qe4tfbBW3f9UH73L0O8cIJCINPD4PS7A2LYang==
+=dR0M
+-----END PGP SIGNATURE-----

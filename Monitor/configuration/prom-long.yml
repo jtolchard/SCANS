@@ -1,29 +1,50 @@
-# my global config
+# Global config
 global:
   scrape_interval:     15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
   evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
   # scrape_timeout is set to the global default (10s).
 
-# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
-rule_files:
-  # - "first_rules.yml"
-  # - "second_rules.yml"
-
-# A scrape configuration containing exactly one endpoint to scrape:
-# Here it's Prometheus itself.
+# Scrape configurations
 scrape_configs:
-  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
-  #- job_name: 'LongTermMetrics'
-  #
-  #  # metrics_path defaults to '/metrics' 
-  #  # scheme defaults to 'http'.
-  #  static_configs:
-  #  - targets: ['CRMN-Server:9091']
-  
-  #FROM GROK
-  - job_name: 'CryogenMetrics'
+  # From Prometheus itself
+  - job_name: 'LongTermDB'
     metrics_path: /metrics
-    scrape_interval: 10s
+    scrape_interval: 600s
+    scrape_timeout: 10s
+    static_configs:
+    - targets: ['CRMN-Server:9091']
+  # From Grok
+  - job_name: 'HeliumMetrics'
+    metrics_path: /metrics
+    scrape_interval: 180s
     scrape_timeout: 10s
     static_configs:
         - targets: ["300MHz:9144","400MHz:9144","500MHz:9144","600MHz:9144","700MHz:9144","800MHz_NB:9144","800MHz_WB:9144","1000MHz:9144"]
+  # From Grok
+  - job_name: 'NitrogenMetrics'
+    metrics_path: /metrics
+    scrape_interval: 180s
+    scrape_timeout: 10s
+    static_configs:
+        - targets: ["300MHz:9145","400MHz:9145","500MHz:9145","600MHz:9145","700MHz:9145","800MHz_NB:9145","800MHz_WB:9145","1000MHz:9145"]
+  # From Grok
+  - job_name: 'FieldMetrics'
+    metrics_path: /metrics
+    scrape_interval: 180s
+    scrape_timeout: 10s
+    static_configs:
+        - targets: ["300MHz:9146","400MHz:9146","500MHz:9146","600MHz:9146","700MHz:9146","800MHz_NB:9146","800MHz_WB:9146","1000MHz:9146"]
+  # From Grok
+  - job_name: 'ShimMetrics'
+    metrics_path: /metrics
+    scrape_interval: 180s
+    scrape_timeout: 10s
+    static_configs:
+        - targets: ["300MHz:9147","400MHz:9147","500MHz:9147","600MHz:9147","700MHz:9147","800MHz_NB:9147","800MHz_WB:9147","1000MHz:9147"]
+  # From Grok
+  - job_name: 'EventLogs'
+    metrics_path: /metrics
+    scrape_interval: 180s
+    scrape_timeout: 10s
+    static_configs:
+        - targets: ["300MHz:9148","400MHz:9148","500MHz:9148","600MHz:9148","700MHz:9148","800MHz_NB:9148","800MHz_WB:9148","1000MHz:9148"]

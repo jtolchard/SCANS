@@ -1,0 +1,10 @@
+Version 3; 7/5/2023
+* Client-spec
+  + Multiple instances of grok added to account for diffeent MICS logs
+  + Example logs & scripts reorganized
+  + Simplified port-binding for docker-compose containers
+* Monitor
+  + Prom-long adjusted to deal with multiple grok instances per machine
+  + Added grafana setup to Git
+  + Example scripts and dashboards reorganized
+  

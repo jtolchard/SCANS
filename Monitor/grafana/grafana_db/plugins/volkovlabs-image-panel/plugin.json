@@ -1,0 +1,40 @@
+{
+  "$schema": "https://raw.githubusercontent.com/grafana/grafana/master/docs/sources/developers/plugins/plugin.schema.json",
+  "dependencies": {
+    "grafanaDependency": ">=8.5.0",
+    "plugins": []
+  },
+  "id": "volkovlabs-image-panel",
+  "info": {
+    "author": {
+      "name": "Volkov Labs",
+      "url": "https://volkovlabs.io"
+    },
+    "description": "Base64 Image/Video/Audio/PDF panel",
+    "keywords": ["image", "base64", "jpg", "gif", "png", "pdf"],
+    "links": [
+      {
+        "name": "Documentation",
+        "url": "https://volkovlabs.io/plugins/volkovlabs-image-panel/"
+      },
+      {
+        "name": "GitHub",
+        "url": "https://github.com/volkovlabs/volkovlabs-image-panel"
+      }
+    ],
+    "logos": {
+      "large": "img/logo.svg",
+      "small": "img/logo.svg"
+    },
+    "screenshots": [
+      {
+        "name": "Static Image Panel",
+        "path": "img/image-panel.png"
+      }
+    ],
+    "updated": "2023-03-07",
+    "version": "3.5.0"
+  },
+  "name": "Base64 Image/Video/Audio/PDF",
+  "type": "panel"
+}
