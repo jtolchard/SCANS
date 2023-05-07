@@ -32,7 +32,7 @@ services:
       - "700MHz:192.168.103.4"
       - "800MHz_NB:192.168.103.18"
       - "800MHz_WB:192.168.103.19"
-      - "1000MHz_WB:192.168.103.75"
+      - "1000MHz:192.168.103.75"
 
   # Long term prometheus DB for spectrometer metrics
   prom-long:
@@ -65,11 +65,11 @@ services:
       - "700MHz:192.168.103.4"
       - "800MHz_NB:192.168.103.18"
       - "800MHz_WB:192.168.103.19"
-      - "1000MHz_WB:192.168.103.75"
+      - "1000MHz:192.168.103.75"
 
   grafana:
     user: root
-    image: grafana/grafana
+    image: grafana/grafana:7.5.7 #7.5.7 doesn't suffer from mount issues
     hostname: svr-grafana
     container_name: grafana
     environment:
