@@ -52,24 +52,21 @@ metrics:
       name: shimcoil_y
       help: The Y shim current as stored in the MICS logs
       path: /opt/logs/rtshims.log
-      match: '^%{TIMESTAMP_ISO8601:timestamp};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{
-NUMBER:shimcoil_y}'
+      match: '^%{TIMESTAMP_ISO8601:timestamp};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER:shimcoil_y}'
       value: '{{.shimcoil_y}}'
       cumulative: false
     - type: gauge
       name: shimcoil_yz
       help: The YZ shim current as stored in the MICS logs
       path: /opt/logs/rtshims.log
-      match: '^%{TIMESTAMP_ISO8601:timestamp};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{
-NUMBER};%{NUMBER:shimcoil_yz}'
+      match: '^%{TIMESTAMP_ISO8601:timestamp};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER:shimcoil_yz}'
       value: '{{.shimcoil_yz}}'
       cumulative: false
     - type: gauge
       name: shimcoil_yz2
       help: The YZ2 shim current as stored in the MICS logs
       path: /opt/logs/rtshims.log
-      match: '^%{TIMESTAMP_ISO8601:timestamp};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{
-NUMBER};%{NUMBER};%{NUMBER:shimcoil_yz2}'
+      match: '^%{TIMESTAMP_ISO8601:timestamp};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER};%{NUMBER:shimcoil_yz2}'
       value: '{{.shimcoil_yz2}}'
       cumulative: false
 server:
