@@ -16,4 +16,4 @@ metrics:
       value: '{{.helium_level}}'
       cumulative: false
 server:
-    port: 9144
+    port: 9145

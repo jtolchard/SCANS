@@ -70,4 +70,4 @@ metrics:
       value: '{{.shimcoil_yz2}}'
       cumulative: false
 server:
-    port: 9144
+    port: 9147

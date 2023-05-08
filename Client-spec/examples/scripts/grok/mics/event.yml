@@ -19,4 +19,4 @@ metrics:
           description: '{{.description}}'
           cat: '{{.equipment_cat}}'
 server:
-    port: 9144
+    port: 9148

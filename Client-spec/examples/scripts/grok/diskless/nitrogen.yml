@@ -16,4 +16,4 @@ metrics:
       value: '{{.nitrogen_level}}'
       cumulative: false
 server:
-    port: 9144
+    port: 9146
