@@ -10,7 +10,7 @@ metrics:
     - type: gauge
       name: nitrogen_level
       help: The nitrogen level value as stored in the Bruker logs
-      path: /opt/logs/heliumlog
+      path: /opt/logs/helium.log
       # MICS TS4.1 log w/ N2 level
       match: '%{GREEDYDATA:timestamp} : helium level =\s*\d* %, nitrogen level =\s*%{NUMBER:nitrogen_level} %{GREEDYDATA}'
       value: '{{.nitrogen_level}}'
