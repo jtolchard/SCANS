@@ -15,4 +15,4 @@ metrics:
       value: '{{.field}}'
       cumulative: false
 server:
-    port: 9144
+    port: 9146
