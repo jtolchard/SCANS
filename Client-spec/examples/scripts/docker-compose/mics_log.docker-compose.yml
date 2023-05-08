@@ -35,6 +35,8 @@ services:
     - "/opt/Bruker/mics/logs:/opt/logs:ro"
     - "./configuration/helium.yml:/grok/config.yml"
     ports:
+    - "9144:9144"
+    expose:
     - "9144"
   # Capture nitrogen metrics
   SCANS-Nitrogen:
@@ -48,6 +50,8 @@ services:
     - "/opt/Bruker/mics/logs:/opt/logs:ro"
     - "./configuration/nitrogen.yml:/grok/config.yml"
     ports:
+    - "9145:9145"
+    expose:
     - "9145"
   # Capture field metrics
   SCANS-Field:
@@ -61,6 +65,8 @@ services:
     - "/opt/Bruker/mics/logs:/opt/logs:ro"
     - "./configuration/field.yml:/grok/config.yml"
     ports:
+    - "9146:9146"
+    expose:
     - "9146"
   # Capture shim metrics
   SCANS-Shim:
@@ -74,6 +80,8 @@ services:
     - "/opt/Bruker/mics/logs:/opt/logs:ro"
     - "./configuration/shim.yml:/grok/config.yml"
     ports:
+    - "9147:9147"
+    expose:
     - "9147"
   # Capture events metrics
   SCANS-Event:
@@ -87,4 +95,6 @@ services:
     - "/opt/Bruker/mics/logs:/opt/logs:ro"
     - "./configuration/event.yml:/grok/config.yml"
     ports:
+    - "9148:9148"
+    expose:
     - "9148"

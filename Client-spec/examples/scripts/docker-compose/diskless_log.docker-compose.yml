@@ -35,7 +35,10 @@ services:
     - "/usr/diskless/prog/logfiles:/opt/logs:ro"
     - "./configuration/helium.yml:/grok/config.yml"
     ports:
+    - "9144:9144"
+    expose:
     - "9144"
+
   # Capture nitrogen metrics
   SCANS-Nitrogen:
     privileged: true
@@ -48,6 +51,8 @@ services:
     - "/usr/diskless/prog/logfiles:/opt/logs:ro"
     - "./configuration/nitrogen.yml:/grok/config.yml"
     ports:
+    - "9145:9145"
+    expose:
     - "9145"
   # Capture field metrics
   SCANS-Field:
@@ -61,4 +66,6 @@ services:
     - "/usr/diskless/prog/logfiles:/opt/logs:ro"
     - "./configuration/field.yml:/grok/config.yml"
     ports:
+    - "9146:9146"
+    expose:
     - "9146"
