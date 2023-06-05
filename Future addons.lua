@@ -1,8 +1,8 @@
 Future addons
 
-Define sets of grok config files for MICS & non-MICS systems
+DONE: Define sets of grok config files for MICS & non-MICS systems
 
-Import from TopSpin
+Import from TopSpin?
 -- topspin version
 -- Shim coil temperature
 -- MAS speed
