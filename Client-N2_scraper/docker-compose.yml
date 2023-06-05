@@ -1,0 +1,41 @@
+version: '3'
+services:
+  tank-scraper:
+    build: ./configuration/tank-scraper/
+    hostname: tank-scraper
+    container_name: tank-scraper
+    restart: unless-stopped
+    volumes:
+    - "./logs:/app/logs"
+
+  # Capture tank metrics for tank 1
+  SCANS-Tank1:
+    image: dalongrong/grok-exporter
+    hostname: SCANS-Tank1
+    container_name: SCANS-Tank1
+    restart: unless-stopped
+    volumes:
+    - "./logs/1:/opt/logs"
+    - "./configuration/grok/tank1.yml:/grok/config.yml"
+    depends_on:
+    - tank-scraper
+    ports:
+    - "9149:9149"
+    expose:
+    - "9149"
+
+  # Capture tank metrics for tank 2
+  SCANS-Tank2:
+    image: dalongrong/grok-exporter
+    hostname: SCANS-Tank2
+    container_name: SCANS-Tank2
+    restart: unless-stopped
+    volumes:
+    - "./logs/2:/opt/logs"
+    - "./configuration/grok/tank2.yml:/grok/config.yml"
+    depends_on:
+    - tank-scraper
+    ports:
+    - "9150:9150"
+    expose:
+    - "9150"

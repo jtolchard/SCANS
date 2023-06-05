@@ -1,0 +1,54 @@
+global:
+    config_version: 2
+input:
+    type: file
+    path: /opt/logs/log.txt
+    fail_on_missing_logfile: false
+grok:
+    patterns_dir: ./patterns
+metrics:
+    - type: gauge
+      name: tank_lvl
+      help: The level of AirLiquide N2 tank 2
+      path: /opt/logs/log.txt
+      match: '%{GREEDYDATA:measurement_time},%{NUMBER:tanklvl},%{GREEDYDATA:alarm_status},%{GREEDYDATA:next_delivery}'
+      value: '{{.tanklvl}}'
+      cumulative: false
+#
+    - type: counter
+      name: tank_last_measured
+      help: The time of monitoring the AirLiquide N2 tank
+      path: /opt/logs/log.txt
+      match: '%{GREEDYDATA:measurement_time},%{NUMBER:tanklvl},%{GREEDYDATA:alarm_status},%{GREEDYDATA:next_delivery}'
+      labels:
+         measurement_time: '{{.measurement_time}}'
+#
+    - type: counter
+      name: tank_alarm_status
+      help: The status of the built-in tank alarm (normally only disactivated when filling).
+      path: /opt/logs/log.txt
+      match: '%{GREEDYDATA:measurement_time},%{NUMBER:tanklvl},%{GREEDYDATA:alarm_status},%{GREEDYDATA:next_delivery}'
+      cumulative: false
+      labels:
+         alarm_status: '{{.alarm_status}}'
+#
+    - type: counter
+      name: tank_next_delivery
+      help: The next scheduled delivery for this tank according to AirLiquide website.
+      path: /opt/logs/log.txt
+      match: '%{GREEDYDATA:measurement_time},%{NUMBER:tanklvl},%{GREEDYDATA:alarm_status},%{GREEDYDATA:next_delivery}'
+      cumulative: false
+      labels:
+         next_delivery: '{{.next_delivery}}'
+#
+    - type: counter
+      name: tank_name
+      help: The name of AirLiquide N2 tank 2
+      path: /opt/logs/log.txt
+      match: '%{GREEDYDATA:measurement_time},%{NUMBER:tanklvl},%{GREEDYDATA:alarm_status},%{GREEDYDATA:next_delivery}'
+      cumulative: false
+      labels:
+         tank_name: 'CRMN Cuve'
+server:
+    port: 9150
+
