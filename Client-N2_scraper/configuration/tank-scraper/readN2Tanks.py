@@ -8,13 +8,16 @@ from datetime import datetime, timedelta
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 CONFIG_FILE = "/app/config.yml"
-
 OUTPUT_DIR = "/app/logs"
+
+os.environ['TZ'] = 'Europe/Paris'
+time.tzset()
 
 # Read the configuration file and return the config dictionary.
 def read_config():
@@ -29,8 +32,7 @@ def configure_driver():
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--remote-debugging-port=9222")
-    return webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
-    #return webdriver.Chrome(options=chrome_options)
+    return webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
 
 # Close the browser and quit the WebDriver.
 def close_browser(driver):
@@ -115,7 +117,8 @@ def handle_api_response(api_data, nextDeliv, tank_name, inc):
             file_path = os.path.join(OUTPUT_DIR, inc, "log.txt")
 
             # Write data to CSV file
-            with open(file_path, "a", newline="") as csvfile:
+            #with open(file_path, "a", newline="") as csvfile:
+            with open(file_path, "w", newline="") as csvfile:
                 writer = csv.writer(csvfile)
                 if csvfile.tell() == 0:
                     writer.writerow(["#TimeStamp, #TankPercentage, #AlarmStatus, #NextDelivery"])  # Write header if file is empty
@@ -179,8 +182,6 @@ def main():
             else:
                 delDate = "Unknown"
 
-            print("Delivery date is: "+delDate)
-            
             handle_api_response(response1, delDate, tank['name'], str(inc))
 
     close_browser(driver)

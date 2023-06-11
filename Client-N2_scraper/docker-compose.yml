@@ -7,6 +7,7 @@ services:
     restart: unless-stopped
     volumes:
     - "./logs:/app/logs"
+    - "/etc/localtime:/etc/localtime:ro"
 
   # Capture tank metrics for tank 1
   SCANS-Tank1:
