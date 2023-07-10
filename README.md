@@ -1,11 +1,29 @@
-<img width="1834" alt="Make your README2" src="https://github.com/jtolchard/SCANS/assets/50239502/9192c740-109a-4b6d-b935-cd2844792e58">
+<img width="1834" alt="banner" src="https://github.com/jtolchard/SCANS/assets/50239502/45bbe5c9-82d0-41dd-93d6-5766a50159d7">
 
 # SCANS
-SCANS brings together multiple open-source tools and custom Python scripts to provide basic dashboard monitoring, with easily customizable analysis and data visualisations. It was created with NMR laboratories in mind, however, data from any system can easily be incorporated. Provided examples include monitoring RAID-array capacity, API-retrieved data mining, Bruker-HLMU web-scraping, and monitoring of industrial hardware such as compressors (via serial-USB ModBus-RTU connection). 
+SCANS brings together multiple open-source tools and custom Python scripts to provide basic dashboard monitoring, with easily customizable analysis and data visualisations. It was created with NMR laboratories in mind, however, data from any system can be incorporated or be the sole focus. Provided examples include monitoring of auto-generated NMR Spretometer logs (Bruker/MICS), RAID-array capacity, API-retrieved data mining, non-API web-scraping (Bruker-HLMU), and monitoring of industrial hardware such as compressors (via ModBus-RTU). 
 
-_Disclaimer... for the moment, SCANS is simple in its analysis and compute requirements but less-so in its manual setup. I am working towards an automated setup tool._
+_Disclaimer... for the moment, SCANS is simple in its analysis and compute requirements but less so in its manual setup. You don't need to be skilled in programming - but knowledge of REGEX and proficiency with UNIX systems are recommended. I aim to create an automated setup tool in the future._
 
 ## Overview
+SCANS is built on top of various containerised services. These allow SCANS to be lightweight, modular, and generally cross-platform. The _Docker_ system is used for containerization; more information about Docker and containerization can be found [here](https://www.docker.com/resources/what-container/). 
+
+### Containerisation
+Containers are analogous to virtual machines. They are virtualised computing environments which can be configured with their own mounted drives, network interfaces, and runnable code. What initially defines a container is a container _image_. Images can be retrieved from community repositories or created on an individual basis. Either way, an image is a static definition of a container _proper_. One container image can be used to spawn multiple containers of the same type and multiple containers of multiple types can be run at any one time on a _real_ computer _(but yes, container-inception [is a thing!](https://www.docker.com/resources/what-container/](https://jpetazzo.github.io/2015/09/03/do-not-use-docker-in-docker-for-ci/) ))_. In the case of SCANS, these are all real-world/bare-metal machines, but these could just as easily (and in fact are more commonly associated with) web-based platforms like AWS.
+
+However, Virtual machines and Containers are principally different in their computational scope.
+
+-   Virtual machines are typically associated with running a virtual instance of a whole, functioning operating system. For example, you might have explored installing a Linux OS like Ubuntu with a tool such as VirtualBox to test some software that only runs on Linux.
+  
+-   Virtual machines are now quite a straightforward process, but in many cases, are extreme overkill. You might have wanted to only test a small software package or a script and therefore didn't need any bloatware, browser, file explorer, word processor, or maybe even a GUI. And yet with the complete virtual machine, you would have downloaded one, installed it, and have it running. Containers seek to address this problem.
+
+- The ethos behind containerisation is that a container should do a singular, discrete task and only contain the code for the obligatory dependencies. They do not necessarily have to be small or computatinoally lightweight, but by structuring them this way, with discrete tasks broken down into separete, distinct containers - you provide the best opportunity to create lightweight, portable, easy to roll-out systems.
+
+
+
+
+
+
 
 
 
@@ -13,7 +31,7 @@ _Disclaimer... for the moment, SCANS is simple in its analysis and compute requi
 
 SCANS works using a series of python scripts within containerized environments which allows SCANS to be secure, cross-platform, and easy to setup.
 
-The Docker system is used for containerization; more information about Docker and containerization can be found [here](https://www.docker.com/resources/what-container/).  
+
 
 <ins>**SCANS employs two flavours of container:**</ins>
 
