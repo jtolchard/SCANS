@@ -1,7 +1,11 @@
 <img width="1834" alt="Make your README2" src="https://github.com/jtolchard/SCANS/assets/50239502/9192c740-109a-4b6d-b935-cd2844792e58">
 
 ## Overview
-SCANS is a simple system that provides a framework for monitoring and analysis of log files.  It is geared towards the analysis of NMR spectrometers, but in principle, any system can be monitored, for example, standalone machines attached to gyrotrons or compressors - as long as consistently formatted log files are generated. For the moment, it is simple in its analysis but less so in its setup.
+SCANS brings together multiple open-source tools and custom Python scripts to provide basic dashboard monitoring, with easily customizable analysis and data visualisations. It was created with NMR laboratories in mind, however, data from any system can easily be incorporated. Provided examples include monitoring RAID-array capacity, API-retrieved data mining, Bruker-HLMU web-scraping, and monitoring of industrial hardware such as compressors (via serial-USB ModBus-RTU connection). 
+
+Disclaimer... for the moment, SCANS is simple in its analysis and compute requirements but less-so in its manual setup. I am working towards an automated setup tool. 
+
+
 
 SCANS works using a series of python scripts within containerized environments which allows SCANS to be secure, cross-platform, and easy to setup.
 
