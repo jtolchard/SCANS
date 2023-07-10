@@ -15,11 +15,21 @@ However, Virtual machines and Containers are principally different in their comp
 
 -   Virtual machines are typically associated with running a virtual instance of a whole, functioning operating system. For example, you might have explored installing a Linux OS like Ubuntu with a tool such as VirtualBox to test some software that only runs on Linux.
   
--   Virtual machines are now quite a straightforward process, but in many cases, are extreme overkill. You might have wanted to only test a small software package or a script and therefore didn't need any bloatware, browser, file explorer, word processor, or maybe even a GUI. And yet with the complete virtual machine, you would have downloaded one, installed it, and have it running. Containers seek to address this problem.
+-   Virtual machines are now quite straightforward, but in many cases, are extreme overkill. You might have only wanted to test a small software package or a script and therefore didn't need any bloatware, browser, file explorer, word processor, or maybe even a GUI - and yet with the complete virtual machine, you would have downloaded, installed, and probably consuming your resources. Containers seek to address this problem.
 
-- The ethos behind containerisation is that a container should do a singular, discrete task and only contain the code for the obligatory dependencies. They do not necessarily have to be small or computatinoally lightweight, but by structuring them this way, with discrete tasks broken down into separete, distinct containers - you provide the best opportunity to create lightweight, portable, easy to deploy services.
+- The ethos behind containerisation is that a container should do a singular, discrete task and only contain the code for the obligatory dependencies. They do not necessarily have to be small or computationally lightweight, but by structuring them this way, with discrete tasks broken down into separate, distinct containers - you provide the best opportunity to create lightweight, portable, and easy-to deploy-services.
 
 
+## SCANS Containers and overall organisation
+
+### Current community-sourced images
+
+- [grafana](link): description
+- [prometheus](link): description
+- [grok](link): description
+- [node_exporter](link): description
+- [dell_hw](link): description
+- [python3](link): description 
 
 
 
