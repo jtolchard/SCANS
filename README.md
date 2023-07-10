@@ -1,9 +1,13 @@
 <img width="1834" alt="Make your README2" src="https://github.com/jtolchard/SCANS/assets/50239502/9192c740-109a-4b6d-b935-cd2844792e58">
 
-## Overview
+# SCANS
 SCANS brings together multiple open-source tools and custom Python scripts to provide basic dashboard monitoring, with easily customizable analysis and data visualisations. It was created with NMR laboratories in mind, however, data from any system can easily be incorporated. Provided examples include monitoring RAID-array capacity, API-retrieved data mining, Bruker-HLMU web-scraping, and monitoring of industrial hardware such as compressors (via serial-USB ModBus-RTU connection). 
 
-Disclaimer... for the moment, SCANS is simple in its analysis and compute requirements but less-so in its manual setup. I am working towards an automated setup tool. 
+_Disclaimer... for the moment, SCANS is simple in its analysis and compute requirements but less-so in its manual setup. I am working towards an automated setup tool._
+
+## Overview
+
+
 
 
 
