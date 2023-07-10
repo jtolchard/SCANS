@@ -1,12 +1,10 @@
-# SCANS
-Simple Containerised Analysis for NMR Systems
+<img width="1834" alt="Make your README2" src="https://github.com/jtolchard/SCANS/assets/50239502/9192c740-109a-4b6d-b935-cd2844792e58">
 
 ## Overview
-SCANS provides a simple system to monitor logfiles. It is geared towards computers attached to NMR spectrometers, but any system can 
-be monitored, for example those attached to gyrotrons or compressors, as long as the logfiles are clearly delimited and contain a date
-and a datapoint per row (as minimum). 
+SCANS is a simple system that provides a framework for monitoring and analysis of log files.  It is geared towards the analysis of NMR spectrometers, but in principle, any system can be monitored, for example, standalone machines attached to gyrotrons or compressors - as long as consistently formatted log files are generated. For the moment, it is simple in its analysis but less so in its setup.
 
 SCANS works using a series of python scripts within containerized environments which allows SCANS to be secure, cross-platform, and easy to setup.
+
 The Docker system is used for containerization; more information about Docker and containerization can be found [here](https://www.docker.com/resources/what-container/).  
 
 <ins>**SCANS employs two flavours of container:**</ins>
