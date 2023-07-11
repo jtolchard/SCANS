@@ -3,7 +3,7 @@
 # SCANS
 SCANS brings together multiple open-source tools and custom Python scripts to provide basic dashboard monitoring, with easily customizable analysis, data visualisations and alert management. It was created with NMR laboratories in mind, however, data from any system can be incorporated or be the sole focus. Provided examples include monitoring of auto-generated NMR Spretometer logs (Bruker/MICS), RAID-array capacity, API-retrieved data mining, non-API web-scraping (Bruker-HLMU), and monitoring of industrial hardware such as compressors (via ModBus-RTU). 
 
-<ins>_Disclaimer: for the moment, SCANS is simple in its analysis and compute requirements but less so in its manual setup. You don't need to be skilled in programming - but knowledge of REGEX and proficiency with UNIX systems are recommended. I aim to create an automated setup tool in the future._</ins>
+<ins>_Disclaimer: for the moment, SCANS is simple in its analysis and compute requirements but less so in its manual setup. You don't need to be skilled in programming - but knowledge of regex and proficiency with UNIX systems are recommended. I aim to create an automated setup tool in the future._</ins>
 
 ## Overview
 SCANS is built on top of various containerised services. These allow SCANS to be lightweight, modular, and generally cross-platform. The _Docker_ system is used for containerization; more information about Docker and containerization can be found [here](https://www.docker.com/resources/what-container/). 
@@ -24,17 +24,32 @@ However, Virtual machines and Containers are principally different in their comp
 
 ### Current community-sourced images
 
-- [grafana](link): description
-- [prometheus](link): description
-- [grok](link): description
-- [node_exporter](link): description
-- [dell_hw](link): description
-- [python3](link): description 
-
-
-
-
-
+- <ins>Grafana</ins>  
+  Grafana is a multi-platform open source analytics and interactive visualization web application. It provides charts, graphs, and alert management.  
+  [image](https://hub.docker.com/r/grafana/grafana)  
+  [project](https://grafana.com/)  
+- <ins>Prometheus</ins>  
+  Prometheus is a free software application used for event monitoring and alerting. It records metrics in a time series database built using an HTTP pull model, with flexible queries and real-time alerting.
+  [image](https://hub.docker.com/r/prom/prometheus)  
+  [project](https://prometheus.io/)  
+- <ins>grok_exporter</ins>  
+  A community module to export Prometheus metrics from arbitrary unstructured log data using regex-like patterns.  
+  [project](https://github.com/fstab/grok_exporter)  
+  [image](https://hub.docker.com/r/dalongrong/grok-exporter)
+-<ins>node_exporter</ins>
+  A community module that exports predefined Prometheus metrics based upon typical linux-system log files and commands.
+  [project](https://github.com/prometheus/node_exporter)  
+  [image](https://hub.docker.com/r/prom/node-exporter)  
+- <ins>dellhw_exporter</ins>
+  A community module that exports predefined Prometheus metrics for Dell Hardware components using Dell OMSA.
+  [project](https://github.com/galexrt/dellhw_exporter)  
+  [image](https://hub.docker.com/r/galexrt/dellhw_exporter)  
+- <ins>python</ins>
+  Various configurable images supporting different versions and builds of python, and its dependencies.  
+  [project](https://www.python.org/)  
+  [image](https://hub.docker.com/_/python)  
+  
+### Alerts
 
 
 
