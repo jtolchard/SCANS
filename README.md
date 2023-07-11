@@ -22,7 +22,7 @@ However, Virtual machines and Containers are principally different in their comp
 
 ## SCANS Containers and overall organisation
 
-### Currentlu used container images
+### SCANS currently uses the following container images:
 
 - <ins>**Grafana** ([image](https://hub.docker.com/r/grafana/grafana), [project](https://grafana.com/))</ins>  
   Grafana is a multi-platform open source analytics and interactive visualization web application. It provides charts, graphs, and alert management.   
