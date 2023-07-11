@@ -22,32 +22,20 @@ However, Virtual machines and Containers are principally different in their comp
 
 ## SCANS Containers and overall organisation
 
-### Current community-sourced images
+### Currentlu used container images
 
-- <ins>Grafana</ins>  
-  Grafana is a multi-platform open source analytics and interactive visualization web application. It provides charts, graphs, and alert management.  
-  [image](https://hub.docker.com/r/grafana/grafana)  
-  [project](https://grafana.com/)  
-- <ins>Prometheus</ins>  
+- <ins>Grafana ([image](https://hub.docker.com/r/grafana/grafana), [project](https://grafana.com/))</ins>  
+  Grafana is a multi-platform open source analytics and interactive visualization web application. It provides charts, graphs, and alert management.   
+- <ins>Prometheus ([image](https://hub.docker.com/r/prom/prometheus), [project](https://prometheus.io/))</ins>  
   Prometheus is a free software application used for event monitoring and alerting. It records metrics in a time series database built using an HTTP pull model, with flexible queries and real-time alerting.
-  [image](https://hub.docker.com/r/prom/prometheus)  
-  [project](https://prometheus.io/)  
-- <ins>grok_exporter</ins>  
+- <ins>grok_exporter ([image](https://hub.docker.com/r/dalongrong/grok-exporter), [project](https://github.com/fstab/grok_exporter))</ins>  
   A community module to export Prometheus metrics from arbitrary unstructured log data using regex-like patterns.  
-  [project](https://github.com/fstab/grok_exporter)  
-  [image](https://hub.docker.com/r/dalongrong/grok-exporter)
--<ins>node_exporter</ins>
-  A community module that exports predefined Prometheus metrics based upon typical linux-system log files and commands.
-  [project](https://github.com/prometheus/node_exporter)  
-  [image](https://hub.docker.com/r/prom/node-exporter)  
-- <ins>dellhw_exporter</ins>
-  A community module that exports predefined Prometheus metrics for Dell Hardware components using Dell OMSA.
-  [project](https://github.com/galexrt/dellhw_exporter)  
-  [image](https://hub.docker.com/r/galexrt/dellhw_exporter)  
-- <ins>python</ins>
+- <ins>node_exporter ([image](https://hub.docker.com/r/prom/node-exporter), [project](https://github.com/prometheus/node_exporter))</ins>
+  A community module that exports predefined Prometheus metrics based upon typical linux-system log files and commands.  
+- <ins>dellhw_exporter ([image](https://hub.docker.com/r/galexrt/dellhw_exporter), [project](https://github.com/galexrt/dellhw_exporter))</ins>
+  A community module that exports predefined Prometheus metrics for Dell Hardware components using Dell OMSA. 
+- <ins>python ([image](https://hub.docker.com/_/python), [project](https://www.python.org/))</ins>
   Various configurable images supporting different versions and builds of python, and its dependencies.  
-  [project](https://www.python.org/)  
-  [image](https://hub.docker.com/_/python)  
   
 ### Alerts
 
