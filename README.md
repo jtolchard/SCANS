@@ -17,7 +17,7 @@ However, Virtual machines and Containers are principally different in their comp
   
 -   Virtual machines are now quite straightforward, but in many cases, are extreme overkill. You might have only wanted to test a small software package or a script and therefore didn't need any bloatware, browser, file explorer, word processor, or maybe even a GUI - and yet with the complete virtual machine, you would have downloaded and installed all of these elements, and probably have them consuming your resources. Containers seek to address this problem.
 
-- The ethos behind containerisation is that a container should do a singular, discrete task and only contain the code for the obligatory dependencies. They do not necessarily have to be small or computationally lightweight, but by structuring them this way, with discrete tasks broken down into separate, distinct containers - you provide the best opportunity to create lightweight, portable, and easy-to deploy-services.
+- The ethos behind containerisation is that a container should do a singular, distinct task and only contain the code for the obligatory dependencies. They do not necessarily have to be small or computationally lightweight, but by structuring them this way, with discrete tasks broken down into separate containers - you provide the best opportunity to create lightweight, portable, and easy-to deploy-services.
 
 
 ## SCANS Containers and overall organisation
