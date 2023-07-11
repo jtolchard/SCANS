@@ -15,7 +15,7 @@ However, Virtual machines and Containers are principally different in their comp
 
 -   Virtual machines are typically associated with running a virtual instance of a whole, functioning operating system. For example, you might have explored installing a Linux OS like Ubuntu with a tool such as VirtualBox to test some software that only runs on Linux.
   
--   Virtual machines are now quite straightforward, but in many cases, are extreme overkill. You might have only wanted to test a small software package or a script and therefore didn't need any bloatware, browser, file explorer, word processor, or maybe even a GUI - and yet with the complete virtual machine, you would have downloaded, installed, and probably consuming your resources. Containers seek to address this problem.
+-   Virtual machines are now quite straightforward, but in many cases, are extreme overkill. You might have only wanted to test a small software package or a script and therefore didn't need any bloatware, browser, file explorer, word processor, or maybe even a GUI - and yet with the complete virtual machine, you would have downloaded and installed all of these elements, and probably have them consuming your resources. Containers seek to address this problem.
 
 - The ethos behind containerisation is that a container should do a singular, discrete task and only contain the code for the obligatory dependencies. They do not necessarily have to be small or computationally lightweight, but by structuring them this way, with discrete tasks broken down into separate, distinct containers - you provide the best opportunity to create lightweight, portable, and easy-to deploy-services.
 
