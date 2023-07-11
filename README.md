@@ -1,7 +1,7 @@
 <img width="1834" alt="banner" src="https://github.com/jtolchard/SCANS/assets/50239502/45bbe5c9-82d0-41dd-93d6-5766a50159d7">
 
 # SCANS
-SCANS brings together multiple open-source tools and custom Python scripts to provide basic dashboard monitoring, with easily customizable analysis and data visualisations. It was created with NMR laboratories in mind, however, data from any system can be incorporated or be the sole focus. Provided examples include monitoring of auto-generated NMR Spretometer logs (Bruker/MICS), RAID-array capacity, API-retrieved data mining, non-API web-scraping (Bruker-HLMU), and monitoring of industrial hardware such as compressors (via ModBus-RTU). 
+SCANS brings together multiple open-source tools and custom Python scripts to provide basic dashboard monitoring, with easily customizable analysis, data visualisations and alert management. It was created with NMR laboratories in mind, however, data from any system can be incorporated or be the sole focus. Provided examples include monitoring of auto-generated NMR Spretometer logs (Bruker/MICS), RAID-array capacity, API-retrieved data mining, non-API web-scraping (Bruker-HLMU), and monitoring of industrial hardware such as compressors (via ModBus-RTU). 
 
 <ins>_Disclaimer: for the moment, SCANS is simple in its analysis and compute requirements but less so in its manual setup. You don't need to be skilled in programming - but knowledge of REGEX and proficiency with UNIX systems are recommended. I aim to create an automated setup tool in the future._</ins>
 
