@@ -6,10 +6,10 @@ SCANS brings together multiple open-source tools and custom Python scripts to pr
 <ins>_Disclaimer: for the moment, SCANS is simple in its analysis and compute requirements but less so in its manual setup. You don't need to be skilled in programming - but knowledge of regex and proficiency with UNIX systems are recommended. I aim to create an automated setup tool in the future._</ins>
 
 ## Overview
-SCANS is built on top of various containerised services. These allow SCANS to be lightweight, modular, and generally cross-platform. The _Docker_ system is used for containerization; more information about Docker and containerization can be found [here](https://www.docker.com/resources/what-container/). 
+SCANS is built on top of various containerised services. These allow SCANS to be lightweight, modular, and generally cross-platform. The _Docker_ system is used for containerization; more information about Docker can be found [here](https://www.docker.com/resources/what-container/). 
 
 ### Containerisation
-Containers are analogous to virtual machines. They are virtualised computing environments which can be configured with their own mounted drives, network interfaces, and runnable code. What initially defines a container is a container _image_. Images can be retrieved from public or private repositories, or built on an individual basis. Either way, an image is a static definition of a container _proper_. One container image can be used to spawn multiple containers of the same type and multiple containers of multiple types can be run at any one time on a _real_ computer _(but yes, container-inception [is a thing!](https://www.docker.com/resources/what-container/](https://jpetazzo.github.io/2015/09/03/do-not-use-docker-in-docker-for-ci/) ))_. In the case of SCANS, containers are all run on real-world bare-metal machines, but containers are more commonly run from cloud platforms like AWS. Importantly, containers fundamentally share a host system's operating system kernel and so have strong performance, resource efficiency, and fast startup time compared to even the smallest Virtal Machine OS.
+Containers are analogous to virtual machines. They are virtualised computing environments which can be configured with their own mounted drives, network interfaces, and runnable code. What initially defines a container is a container _image_. Images can be retrieved from public or private repositories, or built on an individual basis. Either way, an image is a static definition of a container _proper_. One container image can be used to spawn multiple containers of the same type and multiple containers of multiple types can be run at any one time on singular computer hardware. In the case of SCANS, containers are all run on standard linux workstations, but containers are more commonly run from cloud platforms like AWS. Importantly, containers fundamentally share a host system's operating system kernel and so have strong performance, resource efficiency, and fast startup time compared to even the smallest Virtal Machine OS.
 
 However, Virtual machines and Containers are principally different in their computational scope.
 
@@ -22,7 +22,7 @@ However, Virtual machines and Containers are principally different in their comp
 
 ## SCANS Containers and overall organisation
 
-### SCANS currently uses the following container images:
+### SCANS currently uses the following publicly available container images:
 
 - <ins>**Grafana** ([image](https://hub.docker.com/r/grafana/grafana), [project](https://grafana.com/))</ins>  
   Grafana is a multi-platform open source analytics and interactive visualization web application. It provides charts, graphs, and alert management.   
@@ -36,6 +36,18 @@ However, Virtual machines and Containers are principally different in their comp
   A community module that exports predefined Prometheus metrics for Dell Hardware components using Dell OMSA. 
 - <ins>**python** ([image](https://hub.docker.com/_/python), [project](https://www.python.org/))</ins>  
   Various configurable images supporting different versions and builds of python, and its dependencies. SCANS uses python 3.7 and 3.9 depending on the module. 
+
+### Organisation
+
+
+
+
+
+
+
+
+
+
   
 ### Alerts
 
