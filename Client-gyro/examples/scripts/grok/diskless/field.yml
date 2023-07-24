@@ -1,0 +1,18 @@
+global:
+    config_version: 2
+input:
+    type: file
+    path: /opt/logs/helium.log
+    readall: false
+grok:
+    patterns_dir: ./patterns
+metrics:
+    - type: gauge
+      name: field
+      help: The field parameter as stored in the Bruker logs
+      path: /opt/logs/heliumlog
+      match: '%{GREEDYDATA:timestamp} : helium level =\s*\d* %, nitrogen level =\s*\d*\s*%, field =\s*%{NUMBER:field}'
+      value: '{{.field}}'
+      cumulative: false
+server:
+    port: 9144

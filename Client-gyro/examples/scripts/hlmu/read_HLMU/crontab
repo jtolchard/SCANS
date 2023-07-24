@@ -1,0 +1,2 @@
+# run python script every * minutes
+*/10  * * * * root /usr/local/bin/python /app/read_HLMU.py 2&>1
