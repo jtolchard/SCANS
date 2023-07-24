@@ -15,6 +15,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 CONFIG_FILE = "/app/config.yml"
 OUTPUT_DIR = "/app/logs"
+FILE_LIMIT = 97 # i.e. keep 24 hours of data (plus header)
 
 os.environ['TZ'] = 'Europe/Paris'
 time.tzset()
@@ -93,7 +94,7 @@ def make_api_request(url, cookies, max_retries=3, retry_delay=15):
     return None
 
 # Handle the API response and write to CSV file.
-def handle_api_response(api_data, nextDeliv, tank_name, inc):
+def handle_tank_response(tank_name, api_data, nextDeliv):
     try:
         data = json.loads(api_data.text)
         value = data.get("Value")
@@ -107,22 +108,28 @@ def handle_api_response(api_data, nextDeliv, tank_name, inc):
             print("Next Delivery:", nextDeliv)
             print("---")
 
-            # Prepare the data row
-            row = [timestamp, value, is_in_alarm, nextDeliv]
-
             # Replace whitespace with underscore in tank name
             tank_name = tank_name.replace(" ", "_")
 
-            # Prepare the file path
-            file_path = os.path.join(OUTPUT_DIR, inc, "log.txt")
+            # Prepare the data row
+            row = [tank_name, timestamp, value, is_in_alarm, nextDeliv]
 
-            # Write data to CSV file
-            #with open(file_path, "a", newline="") as csvfile:
-            with open(file_path, "w", newline="") as csvfile:
-                writer = csv.writer(csvfile)
-                if csvfile.tell() == 0:
-                    writer.writerow(["#TimeStamp, #TankPercentage, #AlarmStatus, #NextDelivery"])  # Write header if file is empty
-                writer.writerow(row)
+            # Prepare the file path
+            file_path = os.path.join(OUTPUT_DIR, "tanks", "log.txt")
+
+            if csv_file_exists(file_path):
+                clear_data_lines_in_csv(file_path)
+            else:
+                print("creating log file")
+            
+            try:
+                with open(file_path, 'a', newline='') as csvfile:
+                    writer = csv.writer(csvfile)
+                    if csvfile.tell() == 0:
+                        writer.writerow(["#TimeStamp, #TankPercentage, #AlarmStatus, #NextDelivery"])  # Write header if file is empty
+                    writer.writerow(row)
+            except Exception as e:
+                print(f'Error writing to log file: {e}')
 
         else:
             print("API response empty.")
@@ -131,19 +138,77 @@ def handle_api_response(api_data, nextDeliv, tank_name, inc):
     except Exception as e:
         print("An unexpected error occurred:", str(e))
 
+
+#Handle the API response and write to CSV file.
+def handle_spi_response(name, pres_response, flow_response):
+    try:
+        pres_data = json.loads(pres_response.text)
+        flow_data = json.loads(flow_response.text)
+        
+        spi_pres = ''
+        spi_flow = ''
+        spi_time = ''
+        spi_pres = pres_data.get("Value")
+        spi_flow = flow_data.get("Value")
+        spi_time = flow_data.get("Timestamp")
+
+        # Prepare the data row
+        row = [name, spi_time, spi_pres, spi_flow]
+
+        # Prepare the file path
+        file_path = os.path.join(OUTPUT_DIR, "spi", "log.txt")
+
+        if csv_file_exists(file_path):
+            clear_data_lines_in_csv(file_path)
+        else:
+            print("creating log file")
+            
+        try:
+            with open(file_path, 'a', newline='') as csvfile:
+                writer = csv.writer(csvfile)
+                if csvfile.tell() == 0:
+                    writer.writerow(["#TimeStamp, #SPIpressure, #SPIflow"])  # Write header if file is empty
+                writer.writerow(row)
+        except Exception as e:
+            print(f'Error writing to log file: {e}')
+
+    except ValueError as e:
+        print("Error parsing API 3/4 response:", str(e))
+    except Exception as e:
+        print("An unexpected error occurred:", str(e))
+
+
+def clear_data_lines_in_csv(path):
+    try:
+        with open(path, 'r') as csvfile:
+            lines = csvfile.readlines()
+            if len(lines) >= FILE_LIMIT:
+                with open(path, 'w', newline='') as csvfile:
+                    csvfile.truncate(0)
+    except Exception as e:
+        print(f'Error clearing data lines in CSV: {e}')
+
+def csv_file_exists(path):
+    try:
+        with open(path, 'r') as csvfile:
+            return csvfile.read().strip() != ''
+    except FileNotFoundError:
+        return False
+
 def main():
     config = read_config()
     username = config["Credentials"]["Username"]
     password = config["Credentials"]["Password"]
     url = config["Credentials"]["loginURL"]
     tanks = config["ALTanks"]["tanks"]
+    spis = config["SPIs"]
 
     driver = configure_driver()
     wait = WebDriverWait(driver, 30)
 
     driver.get(url)
     cookies = get_al_cookies(driver, wait, username, password)
-  
+
     cookies = {
         "cookies": cookies
     }
@@ -157,12 +222,7 @@ def main():
     yesterday_string = yesterday.strftime('%Y-%m-%d %H:%M:%S')
     oneweek_string = oneweek.strftime('%Y-%m-%d %H:%M:%S')
 
-    # Create an int to help distinguish the log file dirs
-    inc = 0
-
     for tank in tanks:
-        
-        inc += 1
 
         api_url = "https://myinstallations.airliquide.com/france/server/api/v2/tank/"+tank['tankID']+"/currentlevel"
         response1 = make_api_request(api_url, cookies)
@@ -173,16 +233,27 @@ def main():
             response2 = make_api_request(api_url2, cookies)
 
             desired_status = "Planned"
+            delDate = "0"
 
-            for item in json.loads(response2.text):
-                  if item["Status"] == desired_status:
-                    datetime_obj = datetime.strptime(item["DeliveryDate"], "%Y-%m-%dT%H:%M:%S.%f")
-                    delDate = datetime_obj.strftime("%Y-%m-%d %H:%M")
-                    break
-            else:
-                delDate = "Unknown"
+            if response2 is not None:
+                for item in json.loads(response2.text):
+                    if item["Status"] == desired_status:
+                        date_string = item["DeliveryDate"]
+                        tidyDate = date_string.split(".")[0]
+                        datetime_obj = datetime.strptime(tidyDate, "%Y-%m-%dT%H:%M:%S")
+                        delDate = datetime_obj.timestamp()
+                        break
 
-            handle_api_response(response1, delDate, tank['name'], str(inc))
+            handle_tank_response(tank['name'], response1, delDate)
+
+    for spi in spis:
+        spi_pres_api_url = "https://myinstallations.airliquide.com/france/server/api/v2/tank/"+spi['ID']+"/currentpressure"
+        spi_flow_api_url = "https://myinstallations.airliquide.com/france/server/api/v2/tank/"+spi['ID']+"/flowmeter/currentvalue"
+        
+        pres_response = make_api_request(spi_pres_api_url, cookies)
+        flow_response = make_api_request(spi_flow_api_url, cookies)
+
+        handle_spi_response(spi['name'], pres_response, flow_response)
 
     close_browser(driver)
 

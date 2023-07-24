@@ -9,15 +9,15 @@ services:
     - "./logs:/app/logs"
     - "/etc/localtime:/etc/localtime:ro"
 
-  # Capture tank metrics for tank 1
-  SCANS-Tank1:
+  # Capture AirLiquide tank metrics
+  SCANS-Tanks:
     image: dalongrong/grok-exporter
-    hostname: SCANS-Tank1
-    container_name: SCANS-Tank1
+    hostname: SCANS-Tanks
+    container_name: SCANS-Tanks
     restart: unless-stopped
     volumes:
-    - "./logs/1:/opt/logs"
-    - "./configuration/grok/tank1.yml:/grok/config.yml"
+    - "./logs/tanks:/opt/logs"
+    - "./configuration/grok/tank.yml:/grok/config.yml"
     depends_on:
     - tank-scraper
     ports:
@@ -25,15 +25,15 @@ services:
     expose:
     - "9149"
 
-  # Capture tank metrics for tank 2
-  SCANS-Tank2:
+  # Capture AirLiquide spi metrics
+  SCANS-Spi:
     image: dalongrong/grok-exporter
-    hostname: SCANS-Tank2
-    container_name: SCANS-Tank2
+    hostname: SCANS-Spi
+    container_name: SCANS-Spi
     restart: unless-stopped
     volumes:
-    - "./logs/2:/opt/logs"
-    - "./configuration/grok/tank2.yml:/grok/config.yml"
+    - "./logs/spi:/opt/logs"
+    - "./configuration/grok/spi.yml:/grok/config.yml"
     depends_on:
     - tank-scraper
     ports:
