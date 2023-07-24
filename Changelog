@@ -13,7 +13,8 @@ Version 3.1; 11/6/2023
   + New instances of grok added to for HLMU access & scraping
 + New Client-gyro for HLMU monitoring
 * Monitor
-  + Added new item for H
+  + Added new item for HMLU
+#
 Version 3.2; 24/7/2023
 * Consolidated working versions back into Git
 * Expanded gitignore file
