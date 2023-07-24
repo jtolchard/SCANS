@@ -1,0 +1,96 @@
+import paramiko
+import argparse
+import csv
+import ast
+import os
+
+# Example usage
+hostname = "192.168.103.215"
+username = "crmn"
+private_key_path = "/app/private_key"
+command = "/opt/local/bin/python3.9 /Users/crmn/CRMN_Monitoring/SCANS/standalonescripts/comp-scraper.py -s /dev/tty.usbserial-00004004"
+max_lines = 12
+
+# Parse command-line arguments
+parser = argparse.ArgumentParser()
+parser.add_argument('-f', '--filepath', help='Path to the log file')
+args = parser.parse_args()
+
+# CSV file path
+if args.filepath:
+    csv_file_path = args.filepath
+else:
+    csv_file_path = "/app/logs/log.txt"
+
+def run_ssh_command(hostname, username, private_key_path, command):
+    # Create an SSH client
+    client = paramiko.SSHClient()
+
+    # Automatically add the host key
+    client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+
+    try:
+        # Load the private key
+        private_key = paramiko.RSAKey.from_private_key_file(private_key_path)
+
+        # Connect to the SSH server using the private key
+        client.connect(hostname=hostname, username=username, pkey=private_key)
+
+        # Run the command
+        stdin, stdout, stderr = client.exec_command(command)
+
+        # Read the STDOUT
+        stdout = stdout.read().decode()
+        output_list = ast.literal_eval(stdout)
+        output_string = ', '.join(output_list)
+
+        # Print the output
+        return output_string
+
+    except paramiko.AuthenticationException:
+        print("Authentication failed.")
+    except paramiko.SSHException as e:
+        print("SSH connection error:", str(e))
+    finally:
+        # Close the SSH connection
+        client.close()
+
+def write_to_log_file(output_string):
+
+    # Check if the log file exists
+    if os.path.exists(csv_file_path):
+        # Read the existing contents of the log file
+        with open(csv_file_path, 'r') as file:
+            lines = file.readlines()
+
+        # Remove the second line if the log file already has the maximum number of lines
+        if len(lines) >= max_lines:
+            #lines.pop(0)
+            file.truncate(0)
+
+        # Append the new line
+        lines.append(output_string + '\n')
+
+    else:
+        # If the log file doesn't exist, create it with the new line as the content
+        lines = [output_string+'\n']
+
+    # Write the modified contents back to the log file
+    with open(csv_file_path, 'w') as file:
+        file.writelines(lines)
+
+def master_writer():
+
+    # Execute the SSH command
+    output = run_ssh_command(hostname, username, private_key_path, command)
+
+    # Write output to STDOUT
+    print(output)
+
+    # Write output to the log file if filepath provided
+    if csv_file_path:
+        write_to_log_file(output)
+
+# Execute the script
+if __name__ == '__main__':
+    master_writer()

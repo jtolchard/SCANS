@@ -1,0 +1,27 @@
+version: '3'
+services:
+  scans-remote:
+    build: ./configuration/client-remote/
+    hostname: scans-remote
+    container_name: scans-remote
+    restart: unless-stopped
+    volumes:
+    - "/root/.ssh/id_rsa:/app/private_key"
+    - "./logs:/app/logs"
+    - "/etc/localtime:/etc/localtime:ro"
+
+  # Scrape the metrics from the retrieved logs: Bauer compressor
+  scans-comp:
+    image: dalongrong/grok-exporter
+    hostname: scans-comp
+    container_name: scans-comp
+    restart: unless-stopped
+    volumes:
+    - "./logs/:/opt/logs"
+    - "./configuration/grok/compr.yml:/grok/config.yml"
+    depends_on:
+    - scans-remote
+    ports:
+    - "9151:9151"
+    expose:
+    - "9151"
