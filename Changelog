@@ -7,4 +7,16 @@ Version 3; 7/5/2023
   + Prom-long adjusted to deal with multiple grok instances per machine
   + Added grafana setup to Git
   + Example scripts and dashboards reorganized
-  
+#
+Version 3.1; 11/6/2023
+* Client-spec
+  + New instances of grok added to for HLMU access & scraping
++ New Client-gyro for HLMU monitoring
+* Monitor
+  + Added new item for H
+Version 3.2; 24/7/2023
+* Consolidated working versions back into Git
+* Expanded gitignore file
+* Added module to scrape logs from remote commands 
+* Wrote body of script to perform monthly analysis on helium logs. To be continued Salah's matlab.
+
