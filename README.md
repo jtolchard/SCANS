@@ -9,7 +9,7 @@ SCANS brings together multiple open-source tools and custom Python scripts to pr
 SCANS is built on top of various containerised services. These allow SCANS to be lightweight, modular, and generally cross-platform. The _Docker_ system is used for containerization; more information about Docker can be found [here](https://www.docker.com/resources/what-container/). 
 
 ### Containerisation
-Containers are analogous to virtual machines. They are virtualised computing environments which can be configured with their own mounted drives, network interfaces, and runnable code. What initially defines a container is a container _image_. Images can be retrieved from public or private repositories, or built on an individual basis. Either way, an image is a static definition of a container _proper_. One container image can be used to spawn multiple containers of the same type and multiple containers of multiple types can be run at any one time on singular computer hardware. In the case of SCANS, containers are all run on standard linux workstations, but containers are more commonly run from cloud platforms like AWS. Importantly, containers fundamentally share a host system's operating system kernel and so have strong performance, resource efficiency, and fast startup time compared to even the smallest Virtal Machine OS.
+Containers are analogous to virtual machines. They are virtualised computing environments which can be configured with their own mounted drives, network interfaces, and runnable code. What initially defines a container is a container _image_. Images can be retrieved from public or private repositories, or built on an individual basis. Either way, an image is a static definition of a container _proper_. One container image can be used to spawn multiple containers of the same type and multiple containers of multiple types can be run at any one time on singular computer hardware. In the case of SCANS, containers are all run on standard linux workstations, but containers are more commonly run from bare-metal or cloud platforms like AWS. Importantly, containers fundamentally share a host system's operating system kernel and so have strong performance, resource efficiency, and fast startup time compared to even the smallest Virtal Machine OS.
 
 However, Virtual machines and Containers are principally different in their computational scope.
 
@@ -46,29 +46,26 @@ asdg
 asdh
 
 ### Ports
-Each SCANS docker module is assigned a unique network port for communication through the local docker network.
-
-These ports can be fully isolated in the docker network sandbox, or be exposed and mapped to ports of the local interface of the host machine. This is achieved with the "port expose" line of the docker-compose file. In principal, ports need only be exposed when containers require communication with containers of other workstations. For example - The central database container needs to connect to workstation1:port 9144 to retrieve helium level metrics. The specific ports used by a module are defined in the related docker-compose file and are reflected in the relevant prometheus database .yml configuration file. By default these are:
-
-9090: promotheus short-retention time database
-9091: prometheus long-retention time database
-9100: Node exporter (computer metrics)
-9115: Blackbox exporter (custom network response times)
-9137: Dell Hardware metrics (RAID, etc.,)
-9144: helium level scraping (MICS, HMLU logs, or topspin logs)
-9145: nitrogen level scrapint (MICS, HMLU logs, or topspin logs)
-9146: field metrics (MICS or topspin logs)
-9147: shim metrics (MICS or topspin logs)
-9148: event metrics (MICS or topspin logs)
-9149: AirLiquide Webscraped N2 tank metrics
-9150: AirLiquide Webscraped SPI N2 metrics
-9151: Compressor metrics (Bauer ModBus- Helium recycling)
-9152: Gyrotron logs (Helium HMLU logs)
-9153: Gyrotron logs (Nitrogen HMLU logs)
-
-
+Each SCANS docker module is assigned a unique network port for communication. These ports can be fully isolated in the docker network sandbox, or be exposed and mapped to ports of the local interface of the host machine. This is achieved with the "port expose" line of the docker-compose file. The specific ports used by a module are defined in the related docker-compose file and are reflected in the relevant prometheus database .yml configuration file. By default these are:  
   
-### Alerts
+- 9090: promotheus short-retention time database  
+- 9091: prometheus long-retention time database  
+- 9100: Node exporter (computer metrics)  
+- 9115: Blackbox exporter (custom network response times)  
+- 9137: Dell Hardware metrics (RAID, etc.,)  
+- 9144: helium level scraping (MICS, HMLU logs, or topspin logs)  
+- 9145: nitrogen level scraping (MICS, HMLU logs, or topspin logs)  
+- 9146: field metrics (MICS or topspin logs)  
+- 9147: shim metrics (MICS or topspin logs)  
+- 9148: event metrics (MICS or topspin logs)  
+- 9149: Air Liquide Webscraped N2 tank metrics  
+- 9150: Air Liquide Webscraped SPI N2 metrics  
+- 9151: Compressor metrics (Bauer ModBus - Helium recycling)  
+- 9152: Gyrotron logs (Helium HMLU logs)  
+- 9153: Gyrotron logs (Nitrogen HMLU logs)  
+  
+    
+### Alerts  
 
 
 
