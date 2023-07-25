@@ -4,29 +4,49 @@ global:
   evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
   # scrape_timeout is set to the global default (10s).
 
-# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
-rule_files:
-  # - "first_rules.yml"
-  # - "second_rules.yml"
-
-# A scrape configuration containing exactly one endpoint to scrape:
-# Here it's Prometheus itself.
+# Scrape configurations
 scrape_configs:
-  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
-  #- job_name: 'ShortTermMetrics'
-  #
-  #  # metrics_path defaults to '/metrics'
-  #  # scheme defaults to 'http'.
-  #  static_configs:
-  #  - targets: ['CRMN-Server:9090']
-  
-  #FROM NODE_EXPORTER
+  # From Prometheus itself
+  - job_name: 'ShortTermDB'
+    metrics_path: /metrics
+    scrape_interval: 5s
+    static_configs:
+    - targets: ["CRMN-Server:9090"]
+
+  # From Blackbox exporter
+  - job_name: 'blackbox_exporter'
+    metrics_path: /probe
+    scrape_interval: 5s
+    params:
+      module: [icmp_ipv4]
+    static_configs:
+    - targets: ['192.168.103.10']
+      labels:
+        name: 'CRMN Server'
+    - targets: ['10.10.10.10']
+      labels:
+        name: 'UCBL-DNS'
+    - targets: ['194.57.3.7']
+      labels:
+        name: 'Renater (Paris)'
+    - targets: ['8.8.8.8']
+      labels:
+        name: 'Google DNS'
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: 192.168.103.10:9115
+
+  #From node-exporter
   - job_name: 'WorkstationMetrics'
     scrape_interval: 5s
     static_configs:
     - targets: ["CRMN-Server:9100","300MHz:9100","400MHz:9100","500MHz:9100","600MHz:9100","700MHz:9100","800MHz_NB:9100","800MHz_WB:9100","1000MHz:9100"]
 
-  ##FROM DELLHW_EXPORTER
+  # From Dell_HW-exporter
   - job_name: 'RAIDMetrics'
     scrape_interval: 60s
     static_configs:
