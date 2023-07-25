@@ -54,13 +54,13 @@ Each SCANS docker module is assigned a unique network port for communication. Th
 - 9115: Blackbox exporter (custom network response times)  
 - 9137: Dell Hardware metrics (RAID, etc.,)  
 - 9144: helium level scraping (MICS, HMLU logs, or topspin logs)  
-- 9145: nitrogen level scrapint (MICS, HMLU logs, or topspin logs)  
+- 9145: nitrogen level scraping (MICS, HMLU logs, or topspin logs)  
 - 9146: field metrics (MICS or topspin logs)  
 - 9147: shim metrics (MICS or topspin logs)  
 - 9148: event metrics (MICS or topspin logs)  
-- 9149: AirLiquide Webscraped N2 tank metrics  
-- 9150: AirLiquide Webscraped SPI N2 metrics  
-- 9151: Compressor metrics (Bauer ModBus- Helium recycling)  
+- 9149: Air Liquide Webscraped N2 tank metrics  
+- 9150: Air Liquide Webscraped SPI N2 metrics  
+- 9151: Compressor metrics (Bauer ModBus - Helium recycling)  
 - 9152: Gyrotron logs (Helium HMLU logs)  
 - 9153: Gyrotron logs (Nitrogen HMLU logs)  
   
