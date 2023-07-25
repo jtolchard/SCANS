@@ -46,9 +46,7 @@ asdg
 asdh
 
 ### Ports
-Each SCANS docker module is assigned a unique network port for communication through the local docker network.
-
-These ports can be fully isolated in the docker network sandbox, or be exposed and mapped to ports of the local interface of the host machine. This is achieved with the "port expose" line of the docker-compose file. In principal, ports need only be exposed when containers require communication with containers of other workstations. For example - The central database container needs to connect to workstation1:port 9144 to retrieve helium level metrics. The specific ports used by a module are defined in the related docker-compose file and are reflected in the relevant prometheus database .yml configuration file. By default these are:  
+Each SCANS docker module is assigned a unique network port for communication. These ports can be fully isolated in the docker network sandbox, or be exposed and mapped to ports of the local interface of the host machine. This is achieved with the "port expose" line of the docker-compose file. The specific ports used by a module are defined in the related docker-compose file and are reflected in the relevant prometheus database .yml configuration file. By default these are:  
   
 - 9090: promotheus short-retention time database  
 - 9091: prometheus long-retention time database  
