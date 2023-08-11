@@ -9,7 +9,7 @@ grok:
 metrics:
     - type: gauge
       name: battery_level
-      help: The 
+      help: The current Battery % level as defined in the UPS web interface
       path: /opt/logs/log.txt
       match: '%{GREEDYDATA:name},%{GREEDYDATA:status},%{NUMBER:battery_level}'
       value: '{{.battery_level}}'
@@ -19,7 +19,7 @@ metrics:
 #
     - type: counter
       name: ups_status
-      help: The time of monitoring the AirLiquide N2 tank
+      help: The status of the UPS backup
       path: /opt/logs/log.txt
       match: '%{GREEDYDATA:name},%{GREEDYDATA:status},%{NUMBER:battery_level}'
       cumulative: false      
