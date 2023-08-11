@@ -21,7 +21,7 @@ RUN /usr/bin/crontab /etc/cron.d/crontab
 #manage local files
 WORKDIR /app
 COPY . .
-RUN mkdir /app/logs
+#RUN mkdir /app/logs
 RUN mkdir /app/setup
 RUN mv requirements.txt /app/setup/
 RUN mv crontab /app/setup/
