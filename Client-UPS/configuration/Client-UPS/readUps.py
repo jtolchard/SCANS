@@ -12,8 +12,7 @@ address_dict = {'server-ups':
 
 USERNAME = "admin"
 PASSWORD = "public"
-#OUTPUT_DIR = "/app/logs"
-OUTPUT_DIR = "./logs"
+OUTPUT_DIR = "/app/logs"
 FILE_LIMIT = 289 # i.e. keep 24 hours of data (plus header)
 
 def getResponse(url, tag, tabled, cell_location=None):
