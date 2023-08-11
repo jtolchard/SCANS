@@ -1,0 +1,26 @@
+version: '3'
+services:
+  scans-ups_read:
+    build: ./configuration/Client-UPS/
+    hostname: scans-ups_read
+    container_name: scans-ups_read
+    restart: unless-stopped
+    volumes:
+    - "./logs:/app/logs"
+    - "/etc/localtime:/etc/localtime:ro"
+
+  # Scrape the metrics from the retrieved logs: UPS
+  scans-ups_report:
+    image: dalongrong/grok-exporter
+    hostname: scans-ups_report
+    container_name: scans-ups_report
+    restart: unless-stopped
+    volumes:
+    - "./logs/:/opt/logs"
+    - "./configuration/grok/ups.yml:/grok/config.yml"
+    depends_on:
+    - scans-ups_read
+    ports:
+    - "9154:9154"
+    expose:
+    - "9154"

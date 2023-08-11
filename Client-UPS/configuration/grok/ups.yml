@@ -1,0 +1,31 @@
+global:
+    config_version: 2
+input:
+    type: file
+    path: /opt/logs/log.txt
+    fail_on_missing_logfile: false
+grok:
+    patterns_dir: ./patterns
+metrics:
+    - type: gauge
+      name: battery_level
+      help: The 
+      path: /opt/logs/log.txt
+      match: '%{GREEDYDATA:name},%{GREEDYDATA:status},%{NUMBER:battery_level}'
+      value: '{{.battery_level}}'
+      cumulative: false
+      labels:
+         name: '{{.name}}'
+#
+    - type: counter
+      name: ups_status
+      help: The time of monitoring the AirLiquide N2 tank
+      path: /opt/logs/log.txt
+      match: '%{GREEDYDATA:name},%{GREEDYDATA:status},%{NUMBER:battery_level}'
+      cumulative: false      
+      labels:
+         name: '{{.name}}'
+         status: '{{.status}}'
+#
+server:
+    port: 9154
