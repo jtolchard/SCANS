@@ -51,3 +51,9 @@ scrape_configs:
     scrape_interval: 60s
     static_configs:
     - targets: ['CRMN-Server:9137']
+    
+  ##FROM UPSexporter
+  - job_name: 'UPSMetrics'
+    scrape_interval: 60s
+    static_configs:
+    - targets: ['CRMN-Server:9154']
