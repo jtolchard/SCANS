@@ -63,8 +63,9 @@ Each SCANS docker module is assigned a unique network port for communication. Th
 - 9151: Compressor metrics (Bauer ModBus - Helium recycling)  
 - 9152: Gyrotron logs (Helium HMLU logs)  
 - 9153: Gyrotron logs (Nitrogen HMLU logs)
-- 9154: UPS status scraping 
-  
+- 9154: UPS status scraping
+- 9155: Custom Arduino Lab Sensor (temp/pressure/humidity)
+
     
 ### Alerts  
 
