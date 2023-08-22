@@ -1,2 +1,2 @@
-# run python script every 15mins
-*/15 * * * * root /usr/local/bin/python /app/readN2Tanks.py 2&>1
+# run python script every 10mins
+*/10 * * * * root /usr/local/bin/python /app/readN2Tanks.py 2>&1
