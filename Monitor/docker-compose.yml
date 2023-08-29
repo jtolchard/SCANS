@@ -81,6 +81,8 @@ services:
       - ./grafana/grafana_db:/var/lib/grafana
       # Used to map VNC screenshots for loading correctly into grafana
       - ./screenshots:/usr/share/grafana/public/img2/
+      # Added for custom settings & email server
+      - ./configuration/grafana.ini:/etc/grafana/grafana.ini
     #which services are required to start before this one
     depends_on:
       - prom-short
