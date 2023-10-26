@@ -1,2 +1,3 @@
 # run python script every 10mins
 */10 * * * * root /usr/local/bin/python /app/readN2Tanks.py 2>&1
+0 0 * * * root rm -rf /tmp/.com.google.Chrome.* > /app/logs/cron 2>&1
