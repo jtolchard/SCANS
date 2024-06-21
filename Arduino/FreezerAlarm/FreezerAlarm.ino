@@ -62,21 +62,21 @@ void loop() {
   if (digitalRead(f1_com) == HIGH) {
     digitalWrite(alarm1_1, LOW);
     digitalWrite(alarm1_2, HIGH);
-    alarm1_status = "ERROR";
+    alarm1_status = "\"ERROR\"";
   } else if (digitalRead(f1_com) == LOW) {
     digitalWrite(alarm1_1, HIGH);
     digitalWrite(alarm1_2, LOW);
-    alarm1_status = "OK";
+    alarm1_status = "\"OK\"";
   }
 
   if (digitalRead(f2_com) == HIGH) {
     digitalWrite(alarm2_1, LOW);
     digitalWrite(alarm2_2, HIGH);
-    alarm2_status = "ERROR";
+    alarm2_status = "\"ERROR\"";
   } else if (digitalRead(f2_com) == LOW) {
     digitalWrite(alarm2_1, HIGH);
     digitalWrite(alarm2_2, LOW);
-    alarm2_status = "OK";
+    alarm2_status = "\"OK\"";
   }
 
   Serial.print("Alarm 1: ");
