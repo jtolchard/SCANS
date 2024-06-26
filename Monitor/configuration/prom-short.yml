@@ -2,7 +2,6 @@
 global:
   scrape_interval:     15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
   evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
-  # scrape_timeout is set to the global default (10s).
 
 # Scrape configurations
 scrape_configs:
@@ -11,7 +10,7 @@ scrape_configs:
     metrics_path: /metrics
     scrape_interval: 5s
     static_configs:
-    - targets: ["CRMN-Server:9090"]
+    - targets: ["Server:9090"]
 
   # From Blackbox exporter
   - job_name: 'blackbox_exporter'
@@ -22,10 +21,7 @@ scrape_configs:
     static_configs:
     - targets: ['192.168.103.10']
       labels:
-        name: 'CRMN Server'
-    - targets: ['10.10.10.10']
-      labels:
-        name: 'UCBL-DNS'
+        name: 'Server'
     - targets: ['194.57.3.7']
       labels:
         name: 'Renater (Paris)'
@@ -44,16 +40,16 @@ scrape_configs:
   - job_name: 'WorkstationMetrics'
     scrape_interval: 5s
     static_configs:
-    - targets: ["CRMN-Server:9100","300MHz:9100","400MHz:9100","500MHz:9100","600MHz:9100","700MHz:9100","800MHz_NB:9100","800MHz_WB:9100","1000MHz:9100"]
+    - targets: ["Server:9100","300MHz:9100"]
 
   # From Dell_HW-exporter
   - job_name: 'RAIDMetrics'
     scrape_interval: 60s
     static_configs:
-    - targets: ['CRMN-Server:9137']
+    - targets: ['Server:9137']
     
   ##FROM UPSexporter
   - job_name: 'UPSMetrics'
     scrape_interval: 60s
     static_configs:
-    - targets: ['CRMN-Server:9154']
+    - targets: ['Server:9154']

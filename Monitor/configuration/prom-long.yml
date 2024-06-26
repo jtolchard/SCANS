@@ -12,7 +12,7 @@ scrape_configs:
     scrape_interval: 600s
     scrape_timeout: 10s
     static_configs:
-    - targets: ["CRMN-Server:9091"]
+    - targets: ["Server:9091"]
 
 # From N2 tanks (Grok) 
   - job_name: 'N2Tanks'
@@ -20,7 +20,7 @@ scrape_configs:
     scrape_interval: 180s
     scrape_timeout: 10s
     static_configs:
-        - targets: ["CRMN-Server:9149","CRMN-Server:9150"]
+        - targets: ["Server:9149","Server:9150"]
 
 # From Bauer comressor script (Grok) 
   - job_name: 'Compressor'
@@ -28,63 +28,54 @@ scrape_configs:
     scrape_interval: 180s
     scrape_timeout: 10s
     static_configs:
-        - targets: ["CRMN-Server:9151"]
+        - targets: ["Server:9151"]
 
-# From svpectrometer helium logs (Grok) 
+# From spectrometer helium logs (Grok) 
   - job_name: 'HeliumMetrics'
     metrics_path: /metrics
     scrape_interval: 180s
     scrape_timeout: 10s
     static_configs:
-        - targets: ["300MHz:9144","400MHz:9144","500MHz:9144","600MHz:9144","700MHz:9144","800MHz_NB:9144","800MHz_WB:9144","1000MHz:9144"]
+        - targets: ["300MHz:9144"]
   # From spectrometer nitrogen logs (Grok)
   - job_name: 'NitrogenMetrics'
     metrics_path: /metrics
     scrape_interval: 180s
     scrape_timeout: 10s
     static_configs:
-        - targets: ["300MHz:9145","400MHz:9145","500MHz:9145","600MHz:9145","700MHz:9145","800MHz_NB:9145","800MHz_WB:9145","1000MHz:9145"]
+        - targets: ["300MHz:9145"]
   # From spectrometer field logs (Grok) 
   - job_name: 'FieldMetrics'
     metrics_path: /metrics
     scrape_interval: 180s
     scrape_timeout: 10s
     static_configs:
-        - targets: ["300MHz:9146","400MHz:9146","500MHz:9146","600MHz:9146","700MHz:9146","800MHz_NB:9146","800MHz_WB:9146","1000MHz:9146"]
+        - targets: ["300MHz:9146"]
   # From spectrometer shim logs (Grok) 
   - job_name: 'ShimMetrics'
     metrics_path: /metrics
     scrape_interval: 180s
     scrape_timeout: 10s
     static_configs:
-        - targets: ["300MHz:9147","400MHz:9147","500MHz:9147","600MHz:9147","700MHz:9147","800MHz_NB:9147","800MHz_WB:9147","1000MHz:9147"]
+        - targets: ["300MHz:9147"]
   # From spectrometer event logs (Grok) 
   - job_name: 'EventLogs'
     metrics_path: /metrics
     scrape_interval: 180s
     scrape_timeout: 10s
     static_configs:
-        - targets: ["300MHz:9148","400MHz:9148","500MHz:9148","600MHz:9148","700MHz:9148","800MHz_NB:9148","800MHz_WB:9148","1000MHz:9148"]
+        - targets: ["300MHz:9148"]
   # From gyrotron (hlmu-scrapped) logs (Grok)
   - job_name: 'GyrotronLogs'
     metrics_path: /metrics
     scrape_interval: 180s
     scrape_timeout: 10s
     static_configs:
-        - targets: ["400MHz:9152","400MHz:9153"]
+        - targets: ["400MHz:9152"]
 # From Lab Sensor (Grok) 
   - job_name: 'LaboratorySensor'
     metrics_path: /metrics
     scrape_interval: 180s
     scrape_timeout: 10s
     static_configs:
-        - targets: ["CRMN-Server:9155"]
-#########################################################
-# TEST SPACE
-  - job_name: 'TestMetric'
-    metrics_path: /metrics
-    scrape_interval: 180s
-    scrape_timeout: 10s
-    static_configs:
-        - targets: ["CRMN-Server:9166","CRMN-Server:9167"]
-##########################################################
+        - targets: ["Server:9155"]

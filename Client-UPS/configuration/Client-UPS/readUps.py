@@ -5,9 +5,12 @@ import os
 import csv
 from requests.auth import HTTPBasicAuth
 
+## This is specifically for a Network connected SOCOMEC UPS system.
+## Probably won't be of direct use, but an example of how to scrape values off a web page to a log file
+
 address_dict = {'server-ups':
-                {'status': {'url': 'http://192.168.103.12/cgi.ssp?a=000', 'tag': 't1', 'table':'n'},
-                'battery': {'url': 'http://192.168.103.12/cgi.ssp?a=004', 'tag': 't3','table':'y', 'cell_location': (1, 1)}}
+                {'status': {'url': 'http://'{IP_ADDRESS}'/cgi.ssp?a=000', 'tag': 't1', 'table':'n'},
+                'battery': {'url': 'http://'{IP_ADDRESS}'/cgi.ssp?a=004', 'tag': 't3','table':'y', 'cell_location': (1, 1)}}
             }
 
 USERNAME = "admin"
