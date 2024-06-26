@@ -4,10 +4,10 @@ import csv
 import ast
 
 # Example usage
-hostname = "192.168.103.215"
+hostname = "192.168.X.X" # IP address of the remote computer
 username = "crmn"
 private_key_path = "/app/private_key"
-command = "/opt/local/bin/python3.9 /Users/crmn/CRMN_Monitoring/SCANS/standalonescripts/comp-scraper.py -s /dev/tty.usbserial-00004004"
+command = "/opt/local/bin/python3.9 /SCANS/standalonescripts/comp-scraper.py -s /dev/tty.usbserial-00004004"
 
 # Parse command-line arguments
 parser = argparse.ArgumentParser()
