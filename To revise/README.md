@@ -74,14 +74,6 @@ Before installation, a parameter file should be set up with the system name, the
 * <ins>**The Controller**</ins>  
 The SCANS controller should be installed on a single computer, ideally one which is permanently online. A controller should run at least one Prometheus, which will gather metrics across all SCAN clients on a given network. Prometheus also provides its own web interface for viewing the metric data.
 
-
-## Setting up mics on Bruker systems
-
-For Bruker systems, the Management Information Control System (MICS) provides a platform for the routine logging of spectrometer-related metrics.
-On Bruker systems, SCANS will therefore predominatly refer to log files stored by MICS.
-If your systems are not already running MICS, please consult the Official Installation Instructions, [for example here.]](http://mics.bruker.com/micsapp/docs/mics_manual.pdf)
-This should result in a series of regulary updates logfiles, available at _/opt/Bruker/mics/logs._ Typical metrics include the daily helium level, shim currents, B0_field monitoring, and system events. Although uncommon, Nitrogen-level monitoring  will also be available on systems equipped with a nitrogen-level sensor. 
-
 ## INSTALLATION of SCANS
 
 The main SCANS package can be downloaded with the following command:  
@@ -167,18 +159,20 @@ If you would like frequent command line access to SCANS, you can add the bin dir
 
 
 
+
+## Setting up mics on Bruker systems
+
+For Bruker systems, the Management Information Control System (MICS) provides a platform for the routine logging of spectrometer-related metrics.
+On Bruker systems, SCANS will therefore predominatly refer to log files stored by MICS.
+If your systems are not already running MICS, please consult the Official Installation Instructions, [for example here.]](http://mics.bruker.com/micsapp/docs/mics_manual.pdf)
+This should result in a series of regulary updates logfiles, available at _/opt/Bruker/mics/logs._ Typical metrics include the daily helium level, shim currents, B0_field monitoring, and system events. Although uncommon, Nitrogen-level monitoring  will also be available on systems equipped with a nitrogen-level sensor. 
+
 ### Alerts  
 
 
 
 ## NOTES:  
 - Do not edit/delete the files in the logging directory, as these are mount points for the SCANS scraper. If you do, you will need to stop and restart SCANS  
-
-## TO ADD:  
-NEED TO LOOK INTO VERYFYING DOCKER DAEMON IS RUNNING BEFORE RUNTIME!
-Create a check to see if SCANS is running as a system service?  
-Information for HLMU units?  
-Create a schematic for the readme showing the container and the Client:Controller system
 
 ## SOURCES:  
 http://www2.chem.uic.edu/nmr/downloads/bruker/en-US/pdf/z31735.pdf
