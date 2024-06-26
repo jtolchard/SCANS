@@ -129,19 +129,6 @@ def masterWriter():
 def create_csv_row():
     return [str(item['result']) for item in address_dict.values()]
 
-#def create_csv_row():
-#    csv_row = []
-#    for item in address_dict.values():
-#        result = str(item['result'])
-#        name = item['name']
-#        if 'alarms & messages' in name:
-#            decimal_result = int(result)
-#            binary_result = bin(decimal_result)[2:].zfill(16)
-#            csv_row.append(binary_result)
-#        else:
-#            csv_row.append(result)
-#    return csv_row
-
 # Read Modbus registers
 read_modbus_registers()
 

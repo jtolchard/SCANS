@@ -24,7 +24,7 @@ def last_month():
 
 if __name__ == "__main__":
     # Replace this URL with the actual URL of your Prometheus server.
-    prometheus_url = 'http://192.168.103.10:9091/api/v1/query_range'
+    prometheus_url = 'http://{SERVER_IP}:9091/api/v1/query_range'
     # Calculate the timestamp for the current time
     current_time = int(time.time())
 
