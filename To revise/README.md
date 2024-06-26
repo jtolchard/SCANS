@@ -68,15 +68,11 @@ SCANS works using a series of Python scripts within containerized environments t
 <ins>**SCANS employs two flavours of container:**</ins>
 
 * <ins>**The Client**</ins>  
-The SCANS client is installed on each spectrometer or system that requires logging.
-Prior to installation, a parameter file should be setup with the system name and the definitions (names, paths, units, column positions, etc.,) for all the required metrics.
-Multiple metrics can be scraped from the same file and custom metrics can also be added. After installation, the client can either be manually started via the command line or configured to run 
-automatically at boot time (see Installation notes). When running, the client will reguarly check (by default every 60 seconds) for updates to the defined log files and create a aggregated 
-singular log file, with each record stored as a python dictionary.
+SCANS clients are installed on each system (e.g., spectrometer workstation) that requires logging. Clients can also be installed on behalf of a monitored system, e.g., a client can be set up on one machine and remotely scrape metrics from a machine or service that can't speak for itself (i.e., a remote API or sensor). 
+Before installation, a parameter file should be set up with the system name, the definitions (names, paths, units, column positions, etc.,) for all the required metrics and the paths of the log files to be scraped. Multiple metrics can be scraped from the same file. After installation, the client can either be manually started via the command line or configured to run automatically at boot time (see Installation notes). When running, the client will regularly check for updates to the defined log files, which will then, in turn, trigger the refresh of a locally accessible web page that shows the results and conforms to the Prometheus text-based exposition format.
 
 * <ins>**The Controller**</ins>  
-The SCANS controller should be installed on a single computer, ideally one which is permanently online. It will gather metrics across all SCAN clients of a given network and provide a web interface for viewing the metric data.
-Future implementations of SCANS will comprise elements of system monitoring and user administration.
+The SCANS controller should be installed on a single computer, ideally one which is permanently online. A controller should run at least one Prometheus, which will gather metrics across all SCAN clients on a given network. Prometheus also provides its own web interface for viewing the metric data.
 
 
 ## Setting up mics on Bruker systems
