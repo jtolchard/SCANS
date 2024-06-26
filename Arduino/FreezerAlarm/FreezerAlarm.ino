@@ -3,7 +3,9 @@
 #include <Ethernet.h>
 
 // Ethernet settings
+// The mac-address of the ethernet shield
 byte mac[] = { 0xA8, 0x61, 0x0A, 0xAF, 0x13, 0xF9 };
+// A hard coded IP address of your choice
 IPAddress ip(192, 168, 103, 55);
 EthernetServer server(80);
 
