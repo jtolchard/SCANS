@@ -1,0 +1,10 @@
+Arduino UNO WiFi REV2: https://store.arduino.cc/products/arduino-uno-wifi-rev2
+Arduino Ethernet Shield 2: https://store.arduino.cc/products/arduino-ethernet-shield-2
+Inserts for M3 case screws: https://uk.rs-online.com/web/p/threaded-inserts/0278534
+3 pin freezer connections: https://uk.rs-online.com/web/p/compact-power-connectors/0449269
+Green LEDs: https://uk.rs-online.com/web/p/leds/2286004
+Red LEDs: https://uk.rs-online.com/web/p/leds/2285988
+Project board: https://uk.rs-online.com/web/p/breadboards/1004148
+Assorted resistors: https://uk.rs-online.com/web/p/resistor-kits/7472714
+PCB-mount terminal connectors: https://www.amazon.co.uk/YIXISI-Universal-Terminal-Connector-Arduino/dp/B082ZNRQMJ
+Jumper wire: https://www.amazon.co.uk/TUOFENG-Wire-Solid-Different-Colored-spools/dp/B07V5FVSYL

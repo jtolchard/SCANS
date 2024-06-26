@@ -1,4 +1,6 @@
 Arduino UNO WiFi REV2: https://store.arduino.cc/products/arduino-uno-wifi-rev2
 Arduino Ethernet Shield 2: https://store.arduino.cc/products/arduino-ethernet-shield-2
 Display Module: https://www.amazon.co.uk/dp/B099F2KPR4?psc=1&ref=ppx_yo2ov_dt_b_product_details
+Inserts for M3 case screws: https://uk.rs-online.com/web/p/threaded-inserts/0278534
+Jumper wire: https://www.amazon.co.uk/TUOFENG-Wire-Solid-Different-Colored-spools/dp/B07V5FVSYL
 

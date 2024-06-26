@@ -11,16 +11,14 @@ EthernetServer server(80);
 
 // FREEZER 1 ALARMS
 int low = 2;
-int f1_com = 4;
 int high = 3;
+int f1_com = 4;
 int alarm1_1 = 5;
 int alarm1_2 = 6;
 String alarm1_status;
 
 // FREEZER 2 ALARMS
-//int f2_0v = 5;
 int f2_com = 7;
-//int f2_5v = 7;
 int alarm2_1 = 8;
 int alarm2_2 = 9;
 String alarm2_status;
