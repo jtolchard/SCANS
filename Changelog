@@ -21,5 +21,5 @@ Version 0.3; 24/7/2023
 #
 Version 1.0; 26/6/2024
 * Made revisions for public repo
-  + Added arduino files (code/parts/case)
+  + Added arduino files (.ino code, parts list, 3D printed case files and circuit diagrams)
   + Cleaned up 'Other' dir
