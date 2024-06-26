@@ -61,14 +61,9 @@ Each SCANS docker module is assigned a unique network port for communication. Th
 - 9155: Custom Arduino Lab Sensor (temp/pressure/humidity)
 
     
-### Alerts  
+### Organisation  
 
-
-
-
-SCANS works using a series of python scripts within containerized environments which allows SCANS to be secure, cross-platform, and easy to setup.
-
-
+SCANS works using a series of Python scripts within containerized environments that allow SCANS to be secure, cross-platform, and easy to setup.
 
 <ins>**SCANS employs two flavours of container:**</ins>
 
@@ -173,6 +168,11 @@ Should you wish to disable SCANS starting at boot time, you can use:
 `sudo systemctl disable scans_client.service`  
   
 If you would like frequent command line access to SCANS, you can add the bin directory to your UNIX path ([online how-to](https://phoenixnap.com/kb/linux-add-to-path)).  
+
+
+
+### Alerts  
+
 
 
 ## NOTES:  
