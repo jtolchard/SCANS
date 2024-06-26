@@ -1,7 +1,7 @@
 # SCANS docker-compose global config
 version: '3'
 services:
-  # Short term prometheus DB for computer metrics
+  # Short term prometheus DB for computer metrics (2 weeks hold time)
   prom-short:
     user: root
     image: prom/prometheus:latest
@@ -24,17 +24,10 @@ services:
       - "9090"
     # Provide aliases for machine IPs
     extra_hosts:
-      - "CRMN-Server:172.17.0.1"
-      - "300MHz:192.168.103.73"
-      - "400MHz:192.168.103.3"
-      - "500MHz:192.168.103.17"
-      - "600MHz:192.168.103.152"
-      - "700MHz:192.168.103.4"
-      - "800MHz_NB:192.168.103.18"
-      - "800MHz_WB:192.168.103.19"
-      - "1000MHz:192.168.103.75"
+    #format with an alias and an IP address, like: "300MHz:192.168.103.300"
+      - "Server:172.17.0.1"
 
-  # Long term prometheus DB for spectrometer metrics
+  # Long term prometheus DB for spectrometer metrics (2 years hold time)
   prom-long:
     user: root
     image: prom/prometheus:latest
@@ -57,15 +50,8 @@ services:
       - "9091"
     # Provide aliases for machine IPs
     extra_hosts:
-      - "CRMN-Server:172.17.0.1"
-      - "300MHz:192.168.103.73"
-      - "400MHz:192.168.103.3"
-      - "500MHz:192.168.103.17"
-      - "600MHz:192.168.103.152"
-      - "700MHz:192.168.103.4"
-      - "800MHz_NB:192.168.103.18"
-      - "800MHz_WB:192.168.103.19"
-      - "1000MHz:192.168.103.75"
+        #format with an alias and an IP address, like: "300MHz:192.168.103.300"
+      - "Server:172.17.0.1"
 
   grafana:
     user: root
@@ -74,7 +60,7 @@ services:
     container_name: grafana
     environment:
       # Define web interface password
-      - GF_SECURITY_ADMIN_PASSWORD=secure_pass
+      - GF_SECURITY_ADMIN_PASSWORD=password
       # Define a server URL so it doesn't self-reference as "localhost" (needed for message in Teams webhook)
       - GF_SERVER_ROOT_URL=http://192.168.103.10:3000
     volumes:
@@ -91,4 +77,4 @@ services:
       - '3000:3000'
     # Provide host for machine IP
     extra_hosts:
-      - "CRMN-Server:172.17.0.1"
+      - "Server:172.17.0.1"
