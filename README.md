@@ -164,7 +164,7 @@ If you would like frequent command line access to SCANS, you can add the bin dir
 
 For Bruker systems, the Management Information Control System (MICS) provides a platform for the routine logging of spectrometer-related metrics.
 On Bruker systems, SCANS will therefore predominatly refer to log files stored by MICS.
-If your systems are not already running MICS, please consult the Official Installation Instructions, [for example here.]](http://mics.bruker.com/micsapp/docs/mics_manual.pdf)
+If your systems are not already running MICS, please consult the Official Installation Instructions, [for example here.](http://mics.bruker.com/micsapp/docs/mics_manual.pdf)
 This should result in a series of regulary updates logfiles, available at _/opt/Bruker/mics/logs._ Typical metrics include the daily helium level, shim currents, B0_field monitoring, and system events. Although uncommon, Nitrogen-level monitoring  will also be available on systems equipped with a nitrogen-level sensor. 
 
 ### Alerts  
@@ -176,3 +176,7 @@ This should result in a series of regulary updates logfiles, available at _/opt/
 
 ## SOURCES:  
 http://www2.chem.uic.edu/nmr/downloads/bruker/en-US/pdf/z31735.pdf
+
+
+## Acknowledgments
+Many Thanks to [Nathan Rougier](https://scholar.google.com/citations?user=1PvYOwkAAAAJ&hl=en&oi=ao) for his 3D printed models and renders!
