@@ -180,3 +180,4 @@ http://www2.chem.uic.edu/nmr/downloads/bruker/en-US/pdf/z31735.pdf
 
 ## Acknowledgments
 Many Thanks to [Nathan Rougier](https://scholar.google.com/citations?user=1PvYOwkAAAAJ&hl=en&oi=ao) for his 3D printed models and renders!
+Icons for Grafana alerts were adapted from those at https://thenounproject.com/

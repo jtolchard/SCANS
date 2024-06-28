@@ -1,3 +1,0 @@
-# run python script every hour
-*/5 * * * * /usr/local/bin/python /app/run_remote.py >> /var/log/scans-1.log 2>&1
-  

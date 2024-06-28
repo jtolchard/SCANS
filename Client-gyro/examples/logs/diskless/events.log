@@ -1,9 +1,0 @@
-# timestamp ; type (0=NOTIFICATION / 1=WARNING / 2=ERROR / 3=ALERT) ; description ; equipment category
-2018-05-03T12:05:56.725+0200;2;Connection to BSMS failed.: #CRLF;org.omg.CORBA.TRANSIENT:   vmcid: 0x0  minor code: 2  completed: No;0
-2018-05-03T12:17:16.600+0200;2;Connection to BSMS failed.: #CRLF;org.omg.CORBA.TRANSIENT:   vmcid: 0x0  minor code: 2  completed: No;0
-2018-05-03T13:52:08.679+0200;2;Connection to BSMS failed.: #CRLF;org.omg.CORBA.COMM_FAILURE: IOException during connect (java.net.SocketException: Network is unreachable (connect failed))  vmcid: 0x0  minor code: 0  completed: No;0
-2018-05-03T14:02:42.983+0200;2;Connection to BSMS failed.: #CRLF;org.omg.CORBA.COMM_FAILURE: IOException during connect (java.net.SocketException: Network is unreachable (connect failed))  vmcid: 0x0  minor code: 0  completed: No;0
-2018-05-03T14:22:29.757+0200;2;Connection to BSMS failed.: #CRLF;org.omg.CORBA.TRANSIENT:   vmcid: 0x0  minor code: 2  completed: No;0
-2018-11-12T13:25:19.468+0100;2;Connection to BSMS failed.: #CRLF;org.omg.CORBA.TRANSIENT:   vmcid: 0x0  minor code: 2  completed: No;0
-2021-02-17T14:57:13.840+0100;3;He measurement too old (2021-01-11  04:58:00);2
-2021-09-28T12:38:58.870+0200;2;Connection to BSMS failed.: #CRLF;org.omg.CORBA.TRANSIENT:   vmcid: 0x0  minor code: 2  completed: No;0

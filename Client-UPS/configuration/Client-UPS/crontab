@@ -1,3 +1,0 @@
-# run python script every 5mins
-*/5 * * * * root /usr/local/bin/python /app/readUps.py > /app/logs/cron 2>&1
-
