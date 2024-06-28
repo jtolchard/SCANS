@@ -63,120 +63,18 @@ Each SCANS docker module is assigned a unique network port for communication. Th
     
 ### Organisation  
 
-SCANS works using a series of Python scripts within containerized environments that allow SCANS to be secure, cross-platform, and easy to setup.
+SCANS is built upon a network of containerized environments and custom Python scripts. These modules were designed with security in mind and are 'read-only' with respect to your primary data. 
 
-<ins>**SCANS employs two flavours of container:**</ins>
+<ins>**SCANS has two general types of module:**</ins>
 
-* <ins>**The Client**</ins>  
-SCANS clients are installed on each system (e.g., spectrometer workstation) that requires logging. Clients can also be installed on behalf of a monitored system, e.g., a client can be set up on one machine and remotely scrape metrics from a machine or service that can't speak for itself (i.e., a remote API or sensor). 
-Before installation, a parameter file should be set up with the system name, the definitions (names, paths, units, column positions, etc.,) for all the required metrics and the paths of the log files to be scraped. Multiple metrics can be scraped from the same file. After installation, the client can either be manually started via the command line or configured to run automatically at boot time (see Installation notes). When running, the client will regularly check for updates to the defined log files, which will then, in turn, trigger the refresh of a locally accessible web page that shows the results and conforms to the Prometheus text-based exposition format.
+* <ins>**Client modules**</ins>  
+Client moduless are installed on each system (e.g., spectrometer workstation) that requires logging. Clients can also be installed on behalf of a monitored system, e.g., a client can be set up on one machine and remotely scrape metrics from the machine or service of interest that can't speak for itself (i.e., a remote API or sensor). 
+Before installation, a parameter file should be set up with the system name, the definitions (names, paths, units, column positions, etc.,) for all the required metrics and the paths of the log files to be scraped. Multiple metrics can be scraped from the same file. After installation, the client can either be manually started via the command line or configured to run automatically at boot time. When running, the client will regularly check for updates to the defined log files, which will then, in turn, trigger the refresh of a locally accessible web page that shows the results and conforms to the Prometheus text-based exposition format.
 
-* <ins>**The Controller**</ins>  
+* <ins>**The Controller module**</ins>  
 The SCANS controller should be installed on a single computer, ideally one which is permanently online. A controller should run at least one Prometheus, which will gather metrics across all SCAN clients on a given network. Prometheus also provides its own web interface for viewing the metric data.
 
-## INSTALLATION of SCANS
-
-The main SCANS package can be downloaded with the following command:  
-<ins>** WHEN REPO GOES PUBLIC **</ins>  
-wget https://github.com/jtolchard/SCANS/archive/refs/heads/main.zip
-
-<ins>**For each client machine**</ins>  
-Unpack the repository in a suitable location  and move to the Client directory:  
-```
-    wget https://github.com/jtolchard/SCANS/archive/refs/heads/main.zip
-    unzip main.zip
-    mv main SCANS  
-    cd SCANS/Client  
-```  
-  
-Open clientparams.py with a text editor and revise the number and nature of any desired metrics. 
-Each metric is stored as a Python dictionary (within curly braces), for example:  
-```  
-helium_level = {  
-    'name': 'helium_level',                              # Name of the variable  
-    'use': True,                                         # Should this variable be scraped?
-    'path': '/opt/Bruker/mics/logs/heliumlogcache.log',  # Path pointing to live logs  
-    'dockerpath': '/root/scans/logs/helium_level.log',   # DO NOT EDIT - mounted volume path used in container env  
-    'delim': ';',                                        # The delimiter used by the logfile  
-    'datestamp_position': 0,                             # The column position of the time/date data in the row (starts at zero!)  
-    'datavalue_position': 1,                             # The column position of the data value in the row (starts at zero!)   
-    'units': '%'                                         # Desired unit of the output values  
-}  
-```
-
-You can add any additional metrics by creating new blocks.  
-  
-It is fine to reference any log files that are currently empty, however the inclusion of incorrect paths will halt the installer.
-Configuration and installation should therefore be done after any logging software (i.e, MICS) has been setup.
-
-<ins>Remember to set the system_name at the top of clientparams.py to distinguish your specific machine.</ins>
-
-<ins>**Docker**</ins>  
-You will also need to install Docker to manage the SCANS docker-containers. The easiest method is to run:
-
-`sudo yum install docker` # if you are on a CentOS /rpm system  
-or  
-`sudo apt-install docker` # if you are on a Debian / deb system.
-
-SCANS (client or controller) will run seemlessly [on MacOS (Intel and Apple Silicon)](https://docs.docker.com/desktop/install/mac-install/). 
-Alternatively, you can also install docker via a package manager such as homebrew or ports.
-
-SCANS has not currently been tested on Windows.
-I don't see why SCANS wouldn't work well within Windows Subsystem for Linux  (WSL) - but this will require Windows 10 or greater.
-I will investigate installation on older systems.  
-  
-Once Docker is installed, you simply have to run the installer with:  
-
-```  
-python3 installer.py --full  
-```  
-This will create a <ins>SCANS/Client/bin/</ins> directory with five scripts specific to your system:  
-```  
-scans_start       # Start the monitoring process.  
-scans_build+start # Fully parse all available logs to date and start the monitoring process.  
-scans_rebuild     # Fully parse all available logs and create aggregated log. Do not run monitoring process.  
-scans_stop        # Stop monitoring.  
-scans_status      # Read the log file that SCANS creates as it runs. Confirms scans is running and can be useful for troubleshooting.  
-```  
-
-For first-time installations, the `bin/scans_build+start` is recommended. 
-
-This can be run manually from the command line, or run as a system process to start SCANS automatically upon boot.
-This can be done by:  
-```  
-sudo cp service /etc/systemd/scans_client.service  
-sudo systemctl  
-sudo systemctl daemon-reload  
-sudo systemctl start scans_client.service 
-sudo systemctl status scans_client.service
-sudo systemctl enable scans_client.service
-```  
-
-Should you wish to disable SCANS starting at boot time, you can use:  
-`sudo systemctl disable scans_client.service`  
-  
-If you would like frequent command line access to SCANS, you can add the bin directory to your UNIX path ([online how-to](https://phoenixnap.com/kb/linux-add-to-path)).  
-
-
-
-
-## Setting up mics on Bruker systems
-
-For Bruker systems, the Management Information Control System (MICS) provides a platform for the routine logging of spectrometer-related metrics.
-On Bruker systems, SCANS will therefore predominatly refer to log files stored by MICS.
-If your systems are not already running MICS, please consult the Official Installation Instructions, [for example here.](http://mics.bruker.com/micsapp/docs/mics_manual.pdf)
-This should result in a series of regulary updates logfiles, available at _/opt/Bruker/mics/logs._ Typical metrics include the daily helium level, shim currents, B0_field monitoring, and system events. Although uncommon, Nitrogen-level monitoring  will also be available on systems equipped with a nitrogen-level sensor. 
-
-### Alerts  
-
-
-
-## NOTES:  
-- Do not edit/delete the files in the logging directory, as these are mount points for the SCANS scraper. If you do, you will need to stop and restart SCANS  
-
-## SOURCES:  
-http://www2.chem.uic.edu/nmr/downloads/bruker/en-US/pdf/z31735.pdf
-
+The installation and setup of SCANS is described in the [INSTALL.md](https://github.com/jtolchard/SCANS/blob/main/INSTALL.md) file
 
 ## Acknowledgments
 Many Thanks to [Nathan Rougier](https://scholar.google.com/citations?user=1PvYOwkAAAAJ&hl=en&oi=ao) for his 3D printed models and renders!
