@@ -3,7 +3,7 @@
 # SCANS
 SCANS brings together multiple open-source tools and custom Python scripts to provide basic dashboard monitoring, with easily customizable analysis, data visualisations, and alert management. It was created with NMR laboratories in mind, however, data from any system can be incorporated or be the sole focus. Provided examples include monitoring of auto-generated NMR Spectrometer logs (Bruker/MICS), Dell Server RAID-array capacity, API-retrieved data mining, non-API web-scraping (Bruker-HLMU, Socomec-UPS), and monitoring of industrial hardware such as compressors (via ModBus-RTU). 
 
-<ins>_Disclaimer: for the moment, SCANS is simple in its analysis and compute requirements but less so in its manual setup. You don't need to be skilled in programming - but knowledge of regex and proficiency with UNIX systems are recommended.The creation of an automated setup tool is part of the SCANS roadmap._</ins>
+<ins>_Disclaimer: for the moment, SCANS is simple in its analysis and compute requirements but less so in its manual setup. You don't need to be skilled in programming - but knowledge of regex and proficiency with UNIX systems are recommended.The creation of an automated setup tool is in progress._</ins>
 
 ## Overview
 SCANS is built on top of various containerised services. These allow SCANS to be lightweight, modular, and generally cross-platform. The _Docker_ system is used for containerization; more information about Docker can be found [here](https://www.docker.com/resources/what-container/). 
@@ -15,7 +15,7 @@ However, Virtual machines and Containers are principally different in their comp
 
 -   Virtual machines are typically associated with running a virtual instance of a whole, functioning operating system. For example, you might have explored installing a Linux OS like Ubuntu with a tool such as VirtualBox to test some software that only runs on Linux.
   
--   Virtual machines are now quite straightforward, but in many cases, are extreme overkill. You might have only wanted to test a small software package or a script and therefore didn't need any bloatware, browser, file explorer, word processor, or maybe even a GUI - and yet with the complete virtual machine, you would have downloaded and installed all of these elements, and probably have them consuming your resources. Containers seek to address this problem.
+-   Virtual machines are now quite straightforward to work with, but in many cases, are extreme overkill. You might only wanted to test a small software package or a script and therefore don't need most of the features like a browser, file explorer, office packages, or maybe even a GUI. And yet with a complete virtual machine, you will download and install all of these elements, and probably have them consuming your resources. Containers seek to address this problem.
 
 - The ethos behind containerisation is that a container should do a singular, distinct task and only contain the code for the obligatory dependencies. They do not necessarily have to be small or computationally lightweight but, by structuring them this way, with discrete tasks broken down into separate containers - you provide the best opportunity to create lightweight, portable, and easy-to-deploy services.
 
@@ -40,7 +40,7 @@ Blackbox exporter allows probing of remote endpoints over HTTP, HTTPS, DNS, TCP,
   Various configurable images that support the different versions and builds of Python, and its dependencies. SCANS uses Python 3.7 and 3.9 depending on the module. 
 
 ### Ports
-Each SCANS docker module is assigned a unique network port for communication. These ports can be fully isolated in the docker network sandbox, or be exposed and mapped to ports of the local interface of the host machine. This is achieved with the "port expose" line of the docker-compose file. The specific ports used by a module are defined in the related docker-compose file and are reflected in the relevant Prometheus database .yml configuration file. By default, these are:  
+Each SCANS docker module is assigned a unique network port for communication. These ports can be fully isolated in the docker network sandbox, or be exposed and mapped to ports of the local interface of the host machine. The specific ports used by a module are defined in the related docker-compose file and are reflected in the relevant Prometheus database .yml configuration file. They are fully customizable but by default, these are:  
   
 - 9090: Prometheus short-retention time database  
 - 9091: Prometheus long-retention time database  
@@ -58,9 +58,8 @@ Each SCANS docker module is assigned a unique network port for communication. Th
 - 9152: Gyrotron logs (Helium HMLU logs)  
 - 9153: Gyrotron logs (Nitrogen HMLU logs)
 - 9154: UPS status scraping
-- 9155: Custom Arduino Lab Sensor (temp/pressure/humidity)
+- 9155: Custom Arduino Lab Sensor (temp/pressure/humidity
 
-    
 ### Organisation  
 
 SCANS is built upon a network of containerized environments and custom Python scripts. These modules were designed with security in mind and are 'read-only' with respect to your primary data. 
@@ -75,6 +74,7 @@ Before installation, a parameter file should be set up with the system name, the
 The SCANS controller should be installed on a single computer, ideally one which is permanently online. A controller should run at least one Prometheus, which will gather metrics across all SCAN clients on a given network. Prometheus also provides its own web interface for viewing the metric data.
 
 The installation and setup of SCANS is described in the [INSTALL.md](https://github.com/jtolchard/SCANS/blob/main/INSTALL.md) file
+
 
 ## Acknowledgments
 Many Thanks to [Nathan Rougier](https://scholar.google.com/citations?user=1PvYOwkAAAAJ&hl=en&oi=ao) for his 3D printed models and renders!

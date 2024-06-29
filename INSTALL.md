@@ -42,21 +42,26 @@ mv main SCANS
 cd SCANS
 ```
 
-This directory needs to exist on every computer that will run a module. The module configurations, log files, and databases will ne stored here - so make sure the location is future-proof and secure. You will need to run the setup script with elevated permissions (sudo/root).
-
+This directory needs to exist on every computer that will run a module. The module configurations, log files, and databases will be stored here - so make sure the location is future-proof and secure. You will need to run the setup script with elevated permissions (sudo/root).
 
 ### The Client modules: Spectrometer logging
 
 For a first installation, I recommend you configure, start, and test your desired client modules (on each machine) before moving on to the main monitoring module. This isn't obligatory (the modules function independently), however having all of the aliases and IP addresses for your client machines will simplify setup of the monitoring.
 
-I've created a setup.py script which I hope will cater for most instances of spectrometer logging. Once within the SCANS main directory, you can run the setup with 
+I've created a setup.py script which I hope will cater for most instances of spectrometer logging. Once within the SCANS main directory, you can run the setup with:
+
 ```python3 setup.py```  
 
+This will
+- check you have elevated permissions
+- check you have docker and docker-compose installed
+- check you have a local network connection
+- ask you what module you would like to configure (for now, just script is limited to spectrometer and monitor modules)
+- ask you to define an short name for your computer
 
+** I should add a check for '--version', not just that the files are present
 
-
-
-
+ 
 ### The Monitoring module
 
 The main SCANS package can be downloaded with the following command:  
@@ -68,3 +73,7 @@ mv main SCANS
 cd SCANS/Modules/Monitor
 
 
+
+
+BE SURE TO MENTION OPENING THE PORTS! 
+he fully customizable if they overlap with any existing service. 
