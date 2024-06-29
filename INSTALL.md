@@ -26,7 +26,7 @@ sudo systemctl enable docker
 ```
 
 that's it...
-Installers and installation information for Mac and Windows (WSL) can be found (here)[https://docs.docker.com/compose/install/]
+Installers and installation information for Mac and Windows (WSL) can be found [here](https://docs.docker.com/compose/install/)
 
 
 ### The Monitoring module
