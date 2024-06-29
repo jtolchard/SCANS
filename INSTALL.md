@@ -1,12 +1,12 @@
 # INSTALLATION of SCANS
-I will present the configuration and usage of SCANS with a practical example of setting up a monitoring module and one general spectrometer module on separate machines, both running an x86 lightweight Linux OS (lubuntu) with Python 3.10.12. By default, SCANS' containers refer to x86-specific containers. You may run into issues when attempting to configure SCANS on older 32-bit madchines, ARM, or Apple silicon. Specific containers to exist for these architectures, but they may require more advanced configuration.
+I will present the configuration and usage of SCANS with a practical example of setting up a monitoring module and one general spectrometer module on separate machines, both running an x86 lightweight Linux OS (lubuntu) with Python 3.10.12. By default, SCANS' containers refer to x86-specific containers. You may run into issues when attempting to configure SCANS on older 32-bit madchines, ARM, or Apple silicon. Specific containers do exist for these architectures, but they may require more advanced configuration.
 
 If you are coming from the NMR world, where x86 CentOS 5/7 are common place, the default containers should be sufficient. 
 
 
 ### Basic configuration
 
-The only prerequistes for SCANS are the programs 'docker' and 'docker-compose'. Some Linux operating systems come with these by default, however the setup.py script will warn you if these programs are not installed (or cannot be found). If you need to install them, run:
+The only prerequistes for SCANS are the programs 'docker' and 'docker-compose'. Some Linux operating systems come with these by default and the setup.py script will warn you if these programs are not installed (or cannot be found). If you need to install them, run:
 
 For Ubuntu-based systems:
 ```
@@ -26,7 +26,7 @@ sudo systemctl enable docker
 ```
 
 that's it...
-
+Installers and installation information for Mac and Windows (WSL) can be found (here)[https://docs.docker.com/compose/install/]
 
 
 ### The Monitoring module
