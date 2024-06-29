@@ -30,15 +30,28 @@ that's it...
 Installers and installation information for Mac and Windows (WSL) can be found [here](https://docs.docker.com/compose/install/)
 
 
-### The Monitoring module
+### The SCANS repository
 
 The main SCANS package can be downloaded with the following command:  
 wget https://github.com/jtolchard/SCANS/archive/refs/heads/main.zip
 
-Unpack and move into the monitoring directory
+Unpack and move into the main directory
+```
 unzip main.zip
 mv main SCANS  
-cd SCANS/Modules/Monitor
+cd SCANS
+```
+
+This directory needs to exist on every computer that will run a module. The module configurations, log files, and databases will ne stored here - so make sure the location is future-proof and secure. You will need to run the setup script with elevated permissions (sudo/root).
+
+
+### The Client modules: Spectrometer logging
+
+For a first installation, I recommend you configure, start, and test your desired client modules (on each machine) before moving on to the main monitoring module. This isn't obligatory (the modules function independently), however having all of the aliases and IP addresses for your client machines will simplify setup of the monitoring.
+
+I've created a setup.py script which I hope will cater for most instances of spectrometer logging. Once within the SCANS main directory, you can run the setup with 
+```python3 setup.py```  
+
 
 
 
