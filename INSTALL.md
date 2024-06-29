@@ -13,7 +13,7 @@ For Ubuntu-based systems:
 sudo apt update
 sudo apt install docker.io docker-compose
 ```
-For RedHat-based systems (like CentOS):
+For RedHat-based systems (including CentOS):
 ```
 sudo yum update 
 sudo yum install docker docker-compose
@@ -26,6 +26,7 @@ sudo systemctl enable docker
 ```
 
 that's it...
+
 Installers and installation information for Mac and Windows (WSL) can be found [here](https://docs.docker.com/compose/install/)
 
 
