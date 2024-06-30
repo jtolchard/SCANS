@@ -23,3 +23,5 @@ Version 1.0; 26/6/2024
 * Made revisions for public repo
   + Added arduino files (.ino code, parts list, 3D printed case files and circuit diagrams)
   + Cleaned up 'Other' dir
+  + Creates setup script for Monitor and Client-spec modules
+  + Improved README and INSTALL notes
