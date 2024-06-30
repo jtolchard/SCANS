@@ -123,16 +123,10 @@ As before, the first of these is the docker-compose.yml file and defines all the
 
 For the Monitoring module, there are now three configuration files. The first is grafana.ini. This isn't strictly necessary, but I include it for more advanced use cases. In this file, you can provide grafana with addiontional features, such as credentials for sending alerts via email.
 
-The other two files are configuration files for the short and long term prometheus databases (prom-short.yml and prom-long.yml, respectively).
+The other two files are configuration files for the short and long term prometheus databases (prom-short.yml and prom-long.yml, respectively). The set which metrics are stored as short-term and high-resolution, and which a long-term and low resolution metrics, along side the specific retention time and scraping interval for each database. For customisation, there is a wealth of information online which further explains the syntax and possible options that can be used here [(for example here)](https://prometheus.io/docs/prometheus/latest/getting_started/).
 
+#### Grafana
+I intend to expand on this section at a later date and add further explanations to setting custom alerts. However, I have included an example dashboard to get you started. For now, further information about setting grafana alerts can be found [here](https://grafana.com/docs/grafana/latest/alerting/).
 
-
-
-
-
-
-
-
-
-### Additinal Client modules
-I currently provide 
+### Additional Client modules
+I currently provide a number of other modules in the ./Modules/Other-clients directory. These are all able to work, but I have not yet written automated setup scripts for them. Nonetheless, I'd be happy to answer questions via email if you need any help!

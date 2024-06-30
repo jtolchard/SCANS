@@ -1,0 +1,79 @@
+helium: 
+  # Capture helium metrics
+  SCANS-Helium:
+    privileged: true
+    image: dalongrong/grok-exporter
+    hostname: SCANS-Helium
+    container_name: SCANS-Helium
+    restart: unless-stopped
+    volumes:
+    - "{$log_path}:/opt/logs:ro"
+    - "./configuration/helium.yml:/grok/config.yml"
+    ports:
+    - "9144:9144"
+    expose:
+    - "9144"
+
+nitrogen: 
+  # Capture nitrogen metrics
+  SCANS-Nitrogen:
+    privileged: true
+    image: dalongrong/grok-exporter
+    hostname: SCANS-Nitrogen
+    container_name: SCANS-Nitrogen
+    restart: unless-stopped
+    volumes:
+    - "{$log_path}:/opt/logs:ro"
+    - "./configuration/nitrogen.yml:/grok/config.yml"
+    ports:
+    - "9145:9145"
+    expose:
+    - "9145"
+
+field: 
+  # Capture field metrics
+  SCANS-Field:
+    privileged: true
+    image: dalongrong/grok-exporter
+    hostname: SCANS-Field
+    container_name: SCANS-Field
+    restart: unless-stopped
+    volumes:
+    - "{$log_path}:/opt/logs:ro"
+    - "./configuration/field.yml:/grok/config.yml"
+    ports:
+    - "9146:9146"
+    expose:
+    - "9146"
+
+shims: 
+  # Capture shim metrics
+  SCANS-Shim:
+    privileged: true
+    image: dalongrong/grok-exporter
+    hostname: SCANS-Shim
+    container_name: SCANS-Shim
+    restart: unless-stopped
+    volumes:
+    - "{$log_path}:/opt/logs:ro"
+    - "./configuration/shim.yml:/grok/config.yml"
+    ports:
+    - "9147:9147"
+    expose:
+    - "9147"
+
+events:
+  # Capture events metrics
+  SCANS-Event:
+    privileged: true
+    image: dalongrong/grok-exporter
+    hostname: SCANS-Event
+    container_name: SCANS-Event
+    restart: unless-stopped
+    volumes:
+    - "{$log_path}:/opt/logs:ro"
+    - "./configuration/event.yml:/grok/config.yml"
+    ports:
+    - "9148:9148"
+    expose:
+    - "9148"

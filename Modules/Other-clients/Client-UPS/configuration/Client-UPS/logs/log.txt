@@ -1,0 +1,2 @@
+"#Status, #Battery%"
+server-ups,LOAD PROTECTED,100

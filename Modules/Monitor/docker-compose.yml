@@ -25,7 +25,14 @@ services:
     # Provide aliases for machine IPs
     extra_hosts:
     #format with an alias and an IP address, like: "300MHz:192.168.103.300"
-      - "Server:172.17.0.1"
+      - "LOP:172.20.10.2"
+      - "300:192.168.103.73"
+      - "400:192.168.103.3"
+      - "500:192.168.103.17"
+      - "600:192.168.103.22"
+      - "800nb:192.168.103.18"
+      - "800WB:192.168.103.19"
+      - "1000MHz:192.168.103.75"
 
   # Long term prometheus DB for spectrometer metrics (2 years hold time)
   prom-long:
@@ -51,7 +58,14 @@ services:
     # Provide aliases for machine IPs
     extra_hosts:
         #format with an alias and an IP address, like: "300MHz:192.168.103.300"
-      - "Server:172.17.0.1"
+      - "LOP:172.20.10.2"
+      - "300:192.168.103.73"
+      - "400:192.168.103.3"
+      - "500:192.168.103.17"
+      - "600:192.168.103.22"
+      - "800nb:192.168.103.18"
+      - "800WB:192.168.103.19"
+      - "1000MHz:192.168.103.75"
 
   grafana:
     user: root
@@ -60,10 +74,10 @@ services:
     container_name: grafana
     environment:
       # Define web interface password
-      - GF_SECURITY_ADMIN_PASSWORD=password
+      - GF_SECURITY_ADMIN_PASSWORD=12
       # Define a server URL so it doesn't self-reference as "localhost" (needed for message in Teams webhook)
       # Make sure this ID address is correct
-      - GF_SERVER_ROOT_URL=http://192.168.X.X:3000
+      - GF_SERVER_ROOT_URL=http://172.20.10.2:3000
     volumes:
       - ./grafana/grafana_db:/var/lib/grafana
       # Used to map VNC screenshots for loading correctly into grafana
@@ -78,4 +92,4 @@ services:
       - '3000:3000'
     # Provide host for machine IP
     extra_hosts:
-      - "Server:172.17.0.1"
+      - "LOP:172.20.10.2"

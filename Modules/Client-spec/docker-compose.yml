@@ -1,0 +1,94 @@
+# SCANS docker-compose global config
+version: '3'
+services:
+  # Scrape fundamental computer-useage metrics
+  node-exporter:
+    privileged: true
+    image: prom/node-exporter:latest
+    hostname: node-exporter
+    container_name: node-exporter
+    restart: unless-stopped
+    volumes:
+    - /proc:/host/proc:ro
+    - /sys:/host/sys:ro
+    - /:/rootfs:ro
+    command:
+    - '--path.procfs=/host/proc'
+    - '--path.rootfs=/rootfs'
+    - '--path.sysfs=/host/sys'
+    - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    ports:
+    - "9100:9100"
+    expose:
+    - "9100"
+ 
+  SCANS-Helium:
+    container_name: SCANS-Helium
+    expose:
+    - '9144'
+    hostname: SCANS-Helium
+    image: dalongrong/grok-exporter
+    ports:
+    - 9144:9144
+    privileged: true
+    restart: unless-stopped
+    volumes:
+    - '/Users/James/SCANS/Modules/Client-spec/setup/example_logs/mics:/opt/logs:ro'
+    - ./configuration/helium.yml:/grok/config.yml
+
+  SCANS-Nitrogen:
+    container_name: SCANS-Nitrogen
+    expose:
+    - '9145'
+    hostname: SCANS-Nitrogen
+    image: dalongrong/grok-exporter
+    ports:
+    - 9145:9145
+    privileged: true
+    restart: unless-stopped
+    volumes:
+    - '/Users/James/SCANS/Modules/Client-spec/setup/example_logs/mics:/opt/logs:ro'
+    - ./configuration/nitrogen.yml:/grok/config.yml
+
+  SCANS-Field:
+    container_name: SCANS-Field
+    expose:
+    - '9146'
+    hostname: SCANS-Field
+    image: dalongrong/grok-exporter
+    ports:
+    - 9146:9146
+    privileged: true
+    restart: unless-stopped
+    volumes:
+    - '/Users/James/SCANS/Modules/Client-spec/setup/example_logs/mics:/opt/logs:ro'
+    - ./configuration/field.yml:/grok/config.yml
+
+  SCANS-Shim:
+    container_name: SCANS-Shim
+    expose:
+    - '9147'
+    hostname: SCANS-Shim
+    image: dalongrong/grok-exporter
+    ports:
+    - 9147:9147
+    privileged: true
+    restart: unless-stopped
+    volumes:
+    - '/Users/James/SCANS/Modules/Client-spec/setup/example_logs/mics:/opt/logs:ro'
+    - ./configuration/shim.yml:/grok/config.yml
+
+  SCANS-Event:
+    container_name: SCANS-Event
+    expose:
+    - '9148'
+    hostname: SCANS-Event
+    image: dalongrong/grok-exporter
+    ports:
+    - 9148:9148
+    privileged: true
+    restart: unless-stopped
+    volumes:
+    - '/Users/James/SCANS/Modules/Client-spec/setup/example_logs/mics:/opt/logs:ro'
+    - ./configuration/event.yml:/grok/config.yml
+

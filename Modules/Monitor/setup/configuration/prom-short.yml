@@ -10,10 +10,10 @@ scrape_configs:
     metrics_path: /metrics
     scrape_interval: 5s
     static_configs:
-    - targets: ["LOP:172.20.10.2"]
+    - targets: ["{$server_name}:{$server_ip}"]
 
   #From node-exporter
   - job_name: 'WorkstationMetrics'
     scrape_interval: 5s
     static_configs:
-    - targets: ["LOP:172.20.10.2","300:192.168.103.73", "400:192.168.103.3", "500:192.168.103.17", "600:192.168.103.22", "800nb:192.168.103.18", "800WB:192.168.103.19", "1000MHz:192.168.103.75"]
+    - targets: ["{$server_name}:{$server_ip}",{$all_clients}]

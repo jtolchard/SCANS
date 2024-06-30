@@ -1,0 +1,17 @@
+# SCANS docker-compose global config
+version: '3'
+services:
+  # Report network connectivity metrics
+  blackbox_exporter:
+    image: prom/blackbox-exporter:latest
+    hostname: blackbox_exporter
+    container_name: blackbox_exporter
+    restart: unless-stopped
+    command:
+      - --config.file=/etc/blackbox/blackbox.yml
+    volumes:
+      - ./configuration/blackbox.yml:/etc/blackbox/blackbox.yml
+    ports: 
+      - "9115:9115"
+    expose:
+      - "9115"

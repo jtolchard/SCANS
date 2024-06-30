@@ -1,7 +1,7 @@
 # SCANS docker-compose global config
 version: '3'
 services:
-  # Short term prometheus DB for computer metrics
+  # Short term prometheus DB for computer metrics (2 weeks hold time)
   prom-short:
     user: root
     image: prom/prometheus:latest
@@ -22,11 +22,13 @@ services:
       - 9090:9090
     expose:
       - "9090"
-    # Provide aliases for machine IPs (these lines will be generated when you setup a client system).
+    # Provide aliases for machine IPs
     extra_hosts:
-      - "EXAMPLE:1.1.1.1"
+    #format with an alias and an IP address, like: "300MHz:192.168.103.300"
+      - "{$server_name}:{$server_ip}"
+{$extra_hosts}
 
-  # Long term prometheus DB for cryogen metrics
+  # Long term prometheus DB for spectrometer metrics (2 years hold time)
   prom-long:
     user: root
     image: prom/prometheus:latest
@@ -49,7 +51,9 @@ services:
       - "9091"
     # Provide aliases for machine IPs
     extra_hosts:
-      - "EXAMPLE:1.1.1.1"
+        #format with an alias and an IP address, like: "300MHz:192.168.103.300"
+      - "{$server_name}:{$server_ip}"
+{$extra_hosts}
 
   grafana:
     user: root
@@ -58,13 +62,16 @@ services:
     container_name: grafana
     environment:
       # Define web interface password
-      - GF_SECURITY_ADMIN_PASSWORD=secure_pass
+      - GF_SECURITY_ADMIN_PASSWORD={$grafana_password}
       # Define a server URL so it doesn't self-reference as "localhost" (needed for message in Teams webhook)
-      - GF_SERVER_ROOT_URL=http://192.168.103.10:3000
+      # Make sure this ID address is correct
+      - GF_SERVER_ROOT_URL=http://{$server_ip}:3000
     volumes:
       - ./grafana/grafana_db:/var/lib/grafana
       # Used to map VNC screenshots for loading correctly into grafana
       - ./screenshots:/usr/share/grafana/public/img2/
+      # Added for custom settings & email server
+      - ./configuration/grafana.ini:/etc/grafana/grafana.ini
     #which services are required to start before this one
     depends_on:
       - prom-short
@@ -73,4 +80,4 @@ services:
       - '3000:3000'
     # Provide host for machine IP
     extra_hosts:
-      - "CRMN-Server:172.17.0.1"
+      - "{$server_name}:{$server_ip}"

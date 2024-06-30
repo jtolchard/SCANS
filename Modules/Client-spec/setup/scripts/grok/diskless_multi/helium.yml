@@ -1,0 +1,17 @@
+global:
+    config_version: 2
+input:
+    type: file
+    path: /opt/logs/helium.log
+grok:
+    patterns_dir: ./patterns
+metrics:
+    - type: gauge
+      name: helium_level
+      help: The helium level value as stored in the diskless logs
+      path: /opt/logs/helium.log
+      match: '^%{TIMESTAMP_ISO8601:timestamp};%{NUMBER:helium}'
+      value: '{{.helium}}'
+      cumulative: false
+server:
+    port: 9144

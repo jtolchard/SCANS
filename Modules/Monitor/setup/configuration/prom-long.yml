@@ -10,7 +10,7 @@ scrape_configs:
     metrics_path: /metrics
     scrape_timeout: 10s
     static_configs:
-    - targets: ["LOP:192.168.103.75"]
+    - targets: ["{$server_name}:{$server_ip}"]
 
 # From spectrometer helium logs (Grok) 
   - job_name: 'HeliumMetrics'
@@ -18,32 +18,32 @@ scrape_configs:
     scrape_interval: 180s
     scrape_timeout: 10s
     static_configs:
-        - targets: ["300:9144", "400:9144", "500:9144", "600:9144", "800nb:9144", "800WB:9144", "1000MHz:9144"]
+        - targets: [{$helium_clients}]
 
   # From spectrometer nitrogen logs (Grok)
   - job_name: 'NitrogenMetrics'
     metrics_path: /metrics
     scrape_timeout: 10s
     static_configs:
-        - targets: ["300:9145", "400:9145", "500:9145", "600:9145", "800nb:9145", "800WB:9145", "1000MHz:9145"]
+        - targets: [{$nitrogen_clients}]
 
   # From spectrometer field logs (Grok) 
   - job_name: 'FieldMetrics'
     metrics_path: /metrics
     scrape_timeout: 10s
     static_configs:
-        - targets: ["400:9146", "500:9146", "600:9146", "800nb:9146", "800WB:9146", "1000MHz:9146"]
+        - targets: [{$field_clients}]
 
   # From spectrometer shim logs (Grok) 
   - job_name: 'ShimMetrics'
     metrics_path: /metrics
     scrape_timeout: 10s
     static_configs:
-        - targets: ["400:9147", "500:9147", "600:9147", "800nb:9147", "800WB:9147", "1000MHz:9147"]
+        - targets: [{$shim_clients}]
 
   # From spectrometer event logs (Grok) 
   - job_name: 'EventLogs'
     metrics_path: /metrics
     scrape_timeout: 10s
     static_configs:
-        - targets: ["400:9148", "500:9148", "600:9148", "800nb:9148", "800WB:9148", "1000MHz:9148"]
+        - targets: [{$events_clients}]
