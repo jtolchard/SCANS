@@ -13,8 +13,8 @@ address_dict = {'server-ups':
                 'battery': {'url': 'http://192.168.X.X/cgi.ssp?a=004', 'tag': 't3','table':'y', 'cell_location': (1, 1)}}
             }
 
-USERNAME = "admin"
-PASSWORD = "public"
+USERNAME = ""
+PASSWORD = ""
 OUTPUT_DIR = "/app/logs"
 FILE_LIMIT = 289 # i.e. keep 24 hours of data (plus header)
 
