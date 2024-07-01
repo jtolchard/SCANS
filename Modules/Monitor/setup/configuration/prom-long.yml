@@ -10,7 +10,7 @@ scrape_configs:
     metrics_path: /metrics
     scrape_timeout: 10s
     static_configs:
-    - targets: ["{$server_name}:{$server_ip}"]
+    - targets: ["{$server_name}:9091"]
 
 # From spectrometer helium logs (Grok) 
   - job_name: 'HeliumMetrics'
