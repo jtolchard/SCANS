@@ -38,7 +38,7 @@ wget https://github.com/jtolchard/SCANS/archive/refs/heads/main.zip
 Unpack and move into the main directory
 ```
 unzip main.zip
-mv main SCANS  
+mv SCANS-main SCANS  
 cd SCANS
 ```
 
@@ -100,7 +100,7 @@ Keep in mind, the monitoring module is best installed on a machine that is perma
 
 Unpack and move into the monitoring directory
 unzip main.zip
-mv main SCANS  
+mv SCANS-main SCANS
 cd SCANS
 
 Before starting, be sure to have noted all of the IP addresses and aliases for your client containers. The setup.py script also works to configure the monitoring module, so once within the SCANS main directory, you can run the setup with:
