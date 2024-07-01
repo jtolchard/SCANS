@@ -1,6 +1,6 @@
 """
 Setup script for SCANS
-The SCANS installer does not take any arguments, and should be run, as root (or sudo)
+The SCANS installer does not take any arguments and should be run as root (or sudo)
 with: "sudo python3 setup.py"
 """
 
