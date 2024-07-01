@@ -528,7 +528,8 @@ def setup_monitor(ip_address):
 
         prom_short_yml = './Modules/Monitor/configuration/prom-short.yml'
         prom_long_yml = './Modules/Monitor/configuration/prom-long.yml'
-        all_clients = ', '.join(machines)
+        all_clients = [re.sub(r':[^"]+', ':9100"', item) for item in machines]
+        all_clients = ', '.join(all_clients)
 
         # Deal with prom short file
         with open(prom_short_yml, 'r') as file:
@@ -536,7 +537,6 @@ def setup_monitor(ip_address):
 
         # Update place-holders in new docker-compose file
         file_contents = file_contents.replace('{$server_name}', server_alias)
-        file_contents = file_contents.replace('{$server_ip}', ip_address)
         file_contents = file_contents.replace('{$all_clients}', all_clients)
 
         with open(prom_short_yml, 'w') as file:
