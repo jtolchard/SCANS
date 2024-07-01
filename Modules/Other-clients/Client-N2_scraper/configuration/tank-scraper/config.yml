@@ -1,0 +1,15 @@
+Credentials:
+  loginURL: ""
+  Username: ""
+  Password: ""
+ALTanks:
+  tanks:
+    - name: ""
+      tankID: ""
+      delID: ""
+    - name: ""
+      tankID: ""
+      delID: ""
+SPIs:
+  - ID: ""
+    name: ""
